@@ -1,0 +1,30 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div style="
+    background: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+">
+
+    <h2>
+        {% trans "System" %}
+    </h2>
+
+    <p>
+        <a
+            href="{% url 'admin:setting_certificates' %}"
+            class="button"
+        >
+            🔐 {% trans "SSL-Zertifikate verwalten" %}
+        </a>
+    </p>
+
+</div>
+
+{{ block.super }}
+
+{% endblock %}

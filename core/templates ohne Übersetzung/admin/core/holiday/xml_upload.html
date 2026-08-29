@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+{% if modus == "replace" %}
+
+    <h1>Feiertage eines Jahres ersetzen</h1>
+
+    <div style="
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ba2121;
+        background: #fff0f0;
+    ">
+        <strong>Achtung!</strong>
+
+        <p>
+            Alle bereits gespeicherten Feiertage des Jahres
+            aus dem Dateinamen werden gelöscht.
+        </p>
+
+        <p>
+            Anschließend werden ausschließlich die Feiertage
+            aus der XML-Datei neu angelegt.
+        </p>
+
+        <p>
+            Beispiel:
+            <strong>feiertage_2026.xml</strong>
+        </p>
+    </div>
+
+{% else %}
+
+    <h1>Feiertage aus XML importieren</h1>
+
+    <p>
+        Vorhandene Feiertage werden aktualisiert.
+        Neue Feiertage werden hinzugefügt.
+    </p>
+
+    <p>
+        Beispiel:
+        <strong>feiertage_2026.xml</strong>
+    </p>
+
+{% endif %}
+
+
+<form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div style="margin-top: 20px;">
+
+        <button type="submit" class="default">
+            {% if modus == "replace" %}
+                Feiertage ersetzen
+            {% else %}
+                XML importieren
+            {% endif %}
+        </button>
+
+        <a href="{% url 'admin:core_holiday_changelist' %}"
+           class="button">
+            Abbrechen
+        </a>
+
+    </div>
+
+</form>
+
+{% endblock %}

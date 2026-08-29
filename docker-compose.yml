@@ -1,0 +1,104 @@
+services:
+
+  db:
+    image: postgres:17.6
+    container_name: django-postgres
+    restart: unless-stopped
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    env_file:
+      - .env.prod
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+
+  app:
+    image: zeiterfassung-app:current
+    container_name: django-app
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    volumes:
+      - static_data:/app/staticfiles
+
+    env_file:
+      - .env.prod
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)\""
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+
+    container_name: django-nginx
+    restart: unless-stopped
+
+    depends_on:
+      app:
+        condition: service_healthy
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - static_data:/static:ro
+
+
+  updater:
+    build:
+      context: ./updater
+      dockerfile: Dockerfile
+
+    container_name: django-updater
+    restart: unless-stopped
+
+    env_file:
+      - .env.prod
+
+    environment:
+      GITHUB_REPO: Niklwas/Zeiterfassung
+      IMAGE_NAME: zeiterfassung-app
+      APP_CONTAINER: django-app
+      UPDATER_PORT: "9000"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - updater_tmp:/tmp/updater
+      - ./:/project
+
+    expose:
+      - "9000"
+
+
+volumes:
+  postgres_data:
+  static_data:
+  updater_tmp:

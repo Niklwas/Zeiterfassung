@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h2>{% trans "Offene Urlaubsanträge" %}</h2>
+
+<table border="1" cellpadding="5">
+
+    <tr>
+        <th>{% trans "Benutzer" %}</th>
+        <th>{% trans "Von" %}</th>
+        <th>{% trans "Bis" %}</th>
+        <th>{% trans "Aktion" %}</th>
+    </tr>
+
+    {% for u in offene %}
+
+        <tr>
+            <td>{{ u.user }}</td>
+            <td>{{ u.startdatum }}</td>
+            <td>{{ u.enddatum }}</td>
+
+            <td>
+                <form method="post" style="display:inline;">
+
+                    {% csrf_token %}
+
+                    <input
+                        type="hidden"
+                        name="id"
+                        value="{{ u.id }}"
+                    >
+
+                    <button
+                        name="aktion"
+                        value="approve"
+                    >
+                        {% trans "Genehmigen" %}
+                    </button>
+
+                    <button
+                        name="aktion"
+                        value="reject"
+                    >
+                        {% trans "Ablehnen" %}
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ month }} / {{ year }}</h2>
+
+<a href="{% url 'monat' prev.0 prev.1 %}">← vorheriger Monat</a>
+<a href="{% url 'monat' next.0 next.1 %}">nächster Monat →</a>
+
+<br><br>
+
+<a href="{% url 'monat_pdf' year month %}" target="_blank">
+    <button>PDF Export</button>
+</a>
+
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>Datum</th>
+        <th>Einstempel</th>
+        <th>Ausstempel</th>
+        <th>Ist (A)</th>
+        <th>Soll (B)</th>
+        <th>Überstunden (A-B)</th>
+    </tr>
+
+    {% for row in data %}
+    <tr
+        {% if row.is_krank %}
+            style="background-color: #ff9999;"
+        {% elif row.is_urlaub %}
+            style="background-color: lightblue;"
+        {% elif row.is_holiday %}
+            style="background-color: lightgreen;"
+        {% elif row.is_weekend %}
+            style="background-color: lightyellow;"
+        {% endif %}
+    >
+        <td>{{ row.datum }}</td>
+        <td>{{ row.in|default:"-" }}</td>
+        <td>{{ row.out|default:"-" }}</td>
+        <td>{{ row.arbeitszeit }}</td>
+        <td>{{ row.sollzeit }}</td>
+        <td>{{ row.ueberstunden }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+<br><br>
+
+<h3>Zusammenfassung</h3>
+
+<h3>Monatssummen</h3>
+<table border="1" cellpadding="6">
+    <tr><th>Ist</th><td>{{ monats_summe_ist }}</td></tr>
+    <tr><th>Soll</th><td>{{ monats_summe_soll }}</td></tr>
+    <tr><th>Überstunden</th><td>{{ monats_summe_ueber }}</td></tr>
+</table>
+
+<h3>Jahressummen</h3>
+<table border="1" cellpadding="6">
+    <tr><th>Ist</th><td>{{ jahres_summe_ist }}</td></tr>
+    <tr><th>Soll</th><td>{{ jahres_summe_soll }}</td></tr>
+    <tr><th>Überstunden</th><td>{{ jahres_summe_ueber }}</td></tr>
+</table>
+
+<h3>Urlaubskonto</h3>
+<table border="1" cellpadding="6">
+    <tr><th>Jahresurlaub</th><td>{{ urlaubstage_jahr }}</td></tr>
+    <tr><th>Genommen</th><td>{{ urlaub_genommen }}</td></tr>
+    <tr><th>Resturlaub</th><td>{{ resturlaub }}</td></tr>
+</table>
+
+{% endblock %}

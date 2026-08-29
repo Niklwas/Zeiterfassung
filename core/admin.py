@@ -1,0 +1,1127 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django import forms
+from django.urls import path
+from django.template.response import TemplateResponse
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
+
+from datetime import date
+import re
+import xml.etree.ElementTree as ET
+
+from .models import (
+    User,
+    Entry,
+    Vacation,
+    Sickness,
+    Notification,
+    Holiday,
+)
+
+from .views import jahr_pdf_for_user
+from setting.models import HolidaySettings
+
+
+# ============================================================
+# MITARBEITER ADMIN
+# ============================================================
+
+class CustomUserAdmin(UserAdmin):
+    model = User
+
+    list_display = (
+        "email",
+        "username",
+        "first_name",
+        "last_name",
+        "mitarbeiter_id",
+        "abteilung",
+        "abteilungsleiter",
+        "arbeitszeitmodell",
+        "urlaubstage_jahr",
+        "wochenstunden",
+        "is_staff",
+        "jahr_pdf_button",
+    )
+
+    # -----------------------------------
+    # DROPDOWN-FILTER
+    # -----------------------------------
+
+    list_filter = (
+        "abteilung",
+        "abteilungsleiter",
+        "arbeitszeitmodell",
+        "is_staff",
+        "is_superuser",
+    )
+
+    # -----------------------------------
+    # FORMULAR-FELDER
+    # -----------------------------------
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "mitarbeiter_id",
+                    "username",
+                    "password",
+                )
+            },
+        ),
+
+        (
+            _("Persönlich"),
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "abteilung",
+                    "abteilungsleiter",
+                )
+            },
+        ),
+
+        (
+            _("Arbeitszeit"),
+            {
+                "fields": (
+                    "arbeitszeitmodell",
+                    "urlaubstage_jahr",
+                    "wochenstunden",
+                    "mo_stunden",
+                    "di_stunden",
+                    "mi_stunden",
+                    "do_stunden",
+                    "fr_stunden",
+                    "sa_stunden",
+                    "so_stunden",
+                )
+            },
+        ),
+
+        (
+            _("Berechtigungen"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+
+        (
+            _("Wichtiges Datum"),
+            {
+                "fields": (
+                    "last_login",
+                    "date_joined",
+                )
+            },
+        ),
+    )
+
+    # -----------------------------------
+    # MITARBEITER HINZUFÜGEN
+    # -----------------------------------
+
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "mitarbeiter_id",
+                    "username",
+                    "password1",
+                    "password2",
+                    "abteilung",
+                    "arbeitszeitmodell",
+                    "urlaubstage_jahr",
+                    "is_staff",
+                    "is_active",
+                ),
+            },
+        ),
+    )
+
+    # ===================================
+    # PDF BUTTON
+    # ===================================
+
+    @admin.display(description=_("Jahresübersicht"))
+    def jahr_pdf_button(self, obj):
+        return format_html(
+            '<a class="button" href="{}">{}</a>',
+            f"{obj.id}/jahr_pdf/",
+            _("PDF Jahresübersicht"),
+        )
+
+    # ===================================
+    # EIGENE ADMIN-URLS
+    # ===================================
+
+    def get_urls(self):
+        urls = super().get_urls()
+
+        custom_urls = [
+            path(
+                "<int:user_id>/jahr_pdf/",
+                self.admin_site.admin_view(
+                    self.jahr_pdf_auswahl
+                ),
+                name="mitarbeiter_jahr_pdf_auswahl",
+            ),
+
+            path(
+                "<int:user_id>/jahr_pdf/<int:year>/",
+                self.admin_site.admin_view(
+                    self.jahr_pdf_view
+                ),
+                name="mitarbeiter_jahr_pdf",
+            ),
+        ]
+
+        return custom_urls + urls
+
+    # ===================================
+    # JAHRESAUSWAHL
+    # ===================================
+
+    def jahr_pdf_auswahl(
+        self,
+        request,
+        user_id,
+    ):
+        user = User.objects.get(
+            pk=user_id
+        )
+
+        aktuelles_jahr = date.today().year
+
+        jahre = range(
+            aktuelles_jahr - 3,
+            aktuelles_jahr + 4,
+        )
+
+        context = {
+            **self.admin_site.each_context(request),
+
+            "title": _(
+                "Jahresübersicht für %(user)s"
+            ) % {
+                "user": (
+                    user.get_full_name()
+                    or user.username
+                )
+            },
+
+            "user_obj": user,
+
+            "jahre": jahre,
+        }
+
+        return TemplateResponse(
+            request,
+            "admin/jahr_pdf_auswahl.html",
+            context,
+        )
+
+    # ===================================
+    # PDF FÜR AUSGEWÄHLTES JAHR
+    # ===================================
+
+    def jahr_pdf_view(
+        self,
+        request,
+        user_id,
+        year,
+    ):
+        user = User.objects.get(
+            pk=user_id
+        )
+
+        return jahr_pdf_for_user(
+            request,
+            user,
+            year,
+        )
+
+    # ===================================
+    # ZUGRIFFSBESCHRÄNKUNG
+    # ===================================
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        # Superuser → alles
+        if request.user.is_superuser:
+            return qs
+
+        # Abteilungsleiter
+        if request.user.abteilungsleiter:
+            return qs.filter(
+                abteilung=request.user.abteilung
+            )
+
+        # Normaler Mitarbeiter
+        return qs.filter(
+            pk=request.user.pk
+        )
+
+
+# ============================================================
+# REGISTRIERUNG MITARBEITER
+# ============================================================
+
+try:
+    admin.site.unregister(User)
+except admin.sites.NotRegistered:
+    pass
+
+admin.site.register(
+    User,
+    CustomUserAdmin,
+)
+
+
+# ============================================================
+# BUCHUNG ADMIN
+# ============================================================
+
+@admin.register(Entry)
+class EntryAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "start",
+        "ende",
+        "ist_offen",
+    )
+
+    list_filter = (
+        "user",
+        "start",
+    )
+
+    search_fields = (
+        "user__username",
+        "user__mitarbeiter_id",
+    )
+
+    @admin.display(
+        boolean=True,
+        description=_("Offen"),
+    )
+    def ist_offen(self, obj):
+        return obj.ist_offen
+
+
+# ============================================================
+# URLAUB ADMIN
+# ============================================================
+
+@admin.register(Vacation)
+class VacationAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "startdatum",
+        "enddatum",
+        "status",
+    )
+
+    list_filter = (
+        "status",
+        "startdatum",
+        "user__abteilung",
+    )
+
+    search_fields = (
+        "user__username",
+        "user__mitarbeiter_id",
+    )
+
+    # -----------------------------------
+    # QUERYSET EINSCHRÄNKEN
+    # -----------------------------------
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        if request.user.is_superuser:
+            return qs
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return qs.filter(
+                user__abteilung=request.user.abteilung
+            )
+
+        return qs.filter(
+            user=request.user
+        )
+
+    # -----------------------------------
+    # ÄNDERN
+    # -----------------------------------
+
+    def has_change_permission(
+        self,
+        request,
+        obj=None,
+    ):
+        if request.user.is_superuser:
+            return True
+
+        if obj is None:
+            return True
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return (
+                obj.user.abteilung
+                == request.user.abteilung
+            )
+
+        return False
+
+    # -----------------------------------
+    # HINZUFÜGEN
+    # -----------------------------------
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return True
+
+        return False
+
+    # -----------------------------------
+    # LÖSCHEN
+    # -----------------------------------
+
+    def has_delete_permission(
+        self,
+        request,
+        obj=None,
+    ):
+        if request.user.is_superuser:
+            return True
+
+        if obj is None:
+            return False
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return (
+                obj.user.abteilung
+                == request.user.abteilung
+            )
+
+        return False
+
+
+# ============================================================
+# KRANKHEIT ADMIN
+# ============================================================
+
+@admin.register(Sickness)
+class SicknessAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "startdatum",
+        "enddatum",
+    )
+
+    list_filter = (
+        "startdatum",
+        "user__abteilung",
+    )
+
+    search_fields = (
+        "user__username",
+        "user__mitarbeiter_id",
+    )
+
+    # -----------------------------------
+    # QUERYSET
+    # -----------------------------------
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+
+        if request.user.is_superuser:
+            return qs
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return qs.filter(
+                user__abteilung=request.user.abteilung
+            )
+
+        return qs.filter(
+            user=request.user
+        )
+
+    # -----------------------------------
+    # ÄNDERN
+    # -----------------------------------
+
+    def has_change_permission(
+        self,
+        request,
+        obj=None,
+    ):
+        if request.user.is_superuser:
+            return True
+
+        if obj is None:
+            return True
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return (
+                obj.user.abteilung
+                == request.user.abteilung
+            )
+
+        return False
+
+    # -----------------------------------
+    # HINZUFÜGEN
+    # -----------------------------------
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return True
+
+        # Mitarbeiter dürfen eigene Krankheit eintragen
+        return True
+
+    # -----------------------------------
+    # LÖSCHEN
+    # -----------------------------------
+
+    def has_delete_permission(
+        self,
+        request,
+        obj=None,
+    ):
+        if request.user.is_superuser:
+            return True
+
+        if obj is None:
+            return False
+
+        if getattr(
+            request.user,
+            "abteilungsleiter",
+            False,
+        ):
+            return (
+                obj.user.abteilung
+                == request.user.abteilung
+            )
+
+        return False
+
+
+# ============================================================
+# FEIERTAG XML UPLOAD FORM
+# ============================================================
+
+class FeiertagXMLUploadForm(forms.Form):
+
+    xml_datei = forms.FileField(
+        label=_("XML-Datei"),
+        help_text=_(
+            "Zum Beispiel: feiertage_2026.xml"
+        ),
+    )
+
+
+# ============================================================
+# FEIERTAG ADMIN
+# ============================================================
+
+@admin.register(Holiday)
+class HolidayAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "datum_anzeige",
+        "jahr",
+        "bezeichnung",
+        "aktiv",
+    )
+
+    list_filter = (
+        "jahr",
+        "aktiv",
+        "monat",
+    )
+
+    search_fields = (
+        "bezeichnung",
+    )
+
+    ordering = (
+        "jahr",
+        "monat",
+        "tag",
+    )
+
+    list_editable = (
+        "aktiv",
+    )
+
+    change_list_template = (
+        "admin/core/holiday/change_list.html"
+    )
+
+    # ========================================================
+    # DATUM ANZEIGEN
+    # ========================================================
+
+    @admin.display(
+        description=_("Datum"),
+        ordering="monat",
+    )
+    def datum_anzeige(self, obj):
+        return f"{obj.tag:02d}.{obj.monat:02d}"
+
+    # ========================================================
+    # XML-STATUS
+    # ========================================================
+
+    def get_xml_einstellung(self):
+
+        einstellung, created = (
+            HolidaySettings.objects.get_or_create(
+                pk=1,
+                defaults={
+                    "xml_feiertage_aktiv": True,
+                },
+            )
+        )
+
+        return einstellung
+
+    # ========================================================
+    # ADMIN CHANGE LIST
+    # ========================================================
+
+    def changelist_view(
+        self,
+        request,
+        extra_context=None,
+    ):
+        einstellung = self.get_xml_einstellung()
+
+        extra_context = extra_context or {}
+
+        extra_context[
+            "xml_feiertage_aktiv"
+        ] = einstellung.xml_feiertage_aktiv
+
+        return super().changelist_view(
+            request,
+            extra_context=extra_context,
+        )
+
+    # ========================================================
+    # EIGENE ADMIN-URLS
+    # ========================================================
+
+    def get_urls(self):
+
+        urls = super().get_urls()
+
+        custom_urls = [
+
+            # XML IMPORT
+            path(
+                "xml-upload/",
+                self.admin_site.admin_view(
+                    self.xml_upload_view
+                ),
+                name="core_holiday_xml_upload",
+            ),
+
+            # XML ERSETZEN
+            path(
+                "xml-replace/",
+                self.admin_site.admin_view(
+                    self.xml_replace_view
+                ),
+                name="core_holiday_xml_replace",
+            ),
+
+            # XML AKTIVIEREN / DEAKTIVIEREN
+            path(
+                "xml-toggle/",
+                self.admin_site.admin_view(
+                    self.xml_toggle_view
+                ),
+                name="core_holiday_xml_toggle",
+            ),
+        ]
+
+        return custom_urls + urls
+
+    # ========================================================
+    # XML DATEI AUSLESEN
+    # ========================================================
+
+    def lese_xml(self, xml_datei):
+
+        try:
+            xml_inhalt = xml_datei.read()
+
+            root = ET.fromstring(
+                xml_inhalt
+            )
+
+        except ET.ParseError as e:
+
+            raise ValueError(
+                _(
+                    "Die XML-Datei ist ungültig: "
+                    "%(error)s"
+                ) % {
+                    "error": str(e)
+                }
+            )
+
+        # ---------------------------------------------
+        # JAHR AUS DATEINAME ERMITTELN
+        # ---------------------------------------------
+
+        match = re.search(
+            r"(20\d{2})",
+            xml_datei.name,
+        )
+
+        if not match:
+
+            raise ValueError(
+                _(
+                    "Das Jahr konnte nicht aus dem "
+                    "Dateinamen ermittelt werden. "
+                    "Beispiel: feiertage_2026.xml"
+                )
+            )
+
+        jahr = int(
+            match.group(1)
+        )
+
+        feiertage = []
+
+        # ---------------------------------------------
+        # FEIERTAGE AUS XML LESEN
+        # ---------------------------------------------
+
+        for eintrag in root.findall(
+            "feiertag"
+        ):
+
+            monat = eintrag.findtext(
+                "monat"
+            )
+
+            tag = eintrag.findtext(
+                "tag"
+            )
+
+            bezeichnung = eintrag.findtext(
+                "bezeichnung"
+            )
+
+            # Fehlende Werte überspringen
+            if (
+                not monat
+                or not tag
+                or not bezeichnung
+            ):
+                continue
+
+            try:
+                monat = int(monat)
+                tag = int(tag)
+
+            except ValueError:
+                continue
+
+            # Werte prüfen
+            if not 1 <= monat <= 12:
+                continue
+
+            if not 1 <= tag <= 31:
+                continue
+
+            feiertage.append(
+                {
+                    "jahr": jahr,
+                    "monat": monat,
+                    "tag": tag,
+                    "bezeichnung": (
+                        bezeichnung.strip()
+                    ),
+                }
+            )
+
+        return jahr, feiertage
+
+    # ========================================================
+    # NORMALER XML-IMPORT
+    # ========================================================
+
+    def xml_upload_view(self, request):
+
+        if request.method == "POST":
+
+            form = FeiertagXMLUploadForm(
+                request.POST,
+                request.FILES,
+            )
+
+            if form.is_valid():
+
+                xml_datei = (
+                    form.cleaned_data[
+                        "xml_datei"
+                    ]
+                )
+
+                try:
+
+                    jahr, feiertage = (
+                        self.lese_xml(
+                            xml_datei
+                        )
+                    )
+
+                except ValueError as e:
+
+                    messages.error(
+                        request,
+                        str(e),
+                    )
+
+                    return redirect(
+                        "admin:core_holiday_changelist"
+                    )
+
+                importiert = 0
+                aktualisiert = 0
+
+                # -------------------------------------
+                # FEIERTAGE IMPORTIEREN
+                # -------------------------------------
+
+                for daten in feiertage:
+
+                    _, created = (
+                        Holiday.objects
+                        .update_or_create(
+
+                            jahr=daten["jahr"],
+
+                            monat=daten["monat"],
+
+                            tag=daten["tag"],
+
+                            defaults={
+                                "bezeichnung": (
+                                    daten[
+                                        "bezeichnung"
+                                    ]
+                                ),
+                            },
+                        )
+                    )
+
+                    if created:
+                        importiert += 1
+                    else:
+                        aktualisiert += 1
+
+                messages.success(
+                    request,
+                    _(
+                        "Import für %(jahr)s erfolgreich: "
+                        "%(importiert)s neue Feiertage, "
+                        "%(aktualisiert)s aktualisierte "
+                        "Feiertage."
+                    ) % {
+                        "jahr": jahr,
+                        "importiert": importiert,
+                        "aktualisiert": aktualisiert,
+                    },
+                )
+
+                return redirect(
+                    "admin:core_holiday_changelist"
+                )
+
+        else:
+
+            form = FeiertagXMLUploadForm()
+
+        context = {
+
+            **self.admin_site.each_context(
+                request
+            ),
+
+            "form": form,
+
+            "title": _(
+                "Feiertage aus XML importieren"
+            ),
+
+            "modus": "import",
+        }
+
+        return render(
+            request,
+            "admin/core/holiday/xml_upload.html",
+            context,
+        )
+
+    # ========================================================
+    # XML ERSETZEN
+    # ========================================================
+
+    def xml_replace_view(self, request):
+
+        if request.method == "POST":
+
+            form = FeiertagXMLUploadForm(
+                request.POST,
+                request.FILES,
+            )
+
+            if form.is_valid():
+
+                xml_datei = (
+                    form.cleaned_data[
+                        "xml_datei"
+                    ]
+                )
+
+                try:
+
+                    jahr, feiertage = (
+                        self.lese_xml(
+                            xml_datei
+                        )
+                    )
+
+                except ValueError as e:
+
+                    messages.error(
+                        request,
+                        str(e),
+                    )
+
+                    return redirect(
+                        "admin:core_holiday_changelist"
+                    )
+
+                # -------------------------------------
+                # ALLE FEIERTAGE DIESES JAHRES LÖSCHEN
+                # -------------------------------------
+
+                geloescht, _ = (
+                    Holiday.objects
+                    .filter(
+                        jahr=jahr
+                    )
+                    .delete()
+                )
+
+                # -------------------------------------
+                # XML NEU EINFÜGEN
+                # -------------------------------------
+
+                for daten in feiertage:
+
+                    Holiday.objects.create(
+
+                        jahr=daten["jahr"],
+
+                        monat=daten["monat"],
+
+                        tag=daten["tag"],
+
+                        bezeichnung=(
+                            daten["bezeichnung"]
+                        ),
+
+                        aktiv=True,
+                    )
+
+                messages.success(
+                    request,
+                    _(
+                        "Jahr %(jahr)s wurde vollständig "
+                        "ersetzt. %(geloescht)s alte Feiertage "
+                        "wurden gelöscht und %(importiert)s "
+                        "Feiertage importiert."
+                    ) % {
+                        "jahr": jahr,
+                        "geloescht": geloescht,
+                        "importiert": len(feiertage),
+                    },
+                )
+
+                return redirect(
+                    "admin:core_holiday_changelist"
+                )
+
+        else:
+
+            form = FeiertagXMLUploadForm()
+
+        context = {
+
+            **self.admin_site.each_context(
+                request
+            ),
+
+            "form": form,
+
+            "title": _(
+                "Feiertage eines Jahres ersetzen"
+            ),
+
+            "modus": "replace",
+        }
+
+        return render(
+            request,
+            "admin/core/holiday/xml_upload.html",
+            context,
+        )
+
+    # ========================================================
+    # XML AKTIVIEREN / DEAKTIVIEREN
+    # ========================================================
+
+    def xml_toggle_view(self, request):
+
+        einstellung = (
+            self.get_xml_einstellung()
+        )
+
+        # Zustand umkehren
+        einstellung.xml_feiertage_aktiv = (
+            not einstellung.xml_feiertage_aktiv
+        )
+
+        einstellung.save(
+            update_fields=[
+                "xml_feiertage_aktiv"
+            ]
+        )
+
+        # ---------------------------------------------
+        # MELDUNG
+        # ---------------------------------------------
+
+        if einstellung.xml_feiertage_aktiv:
+
+            messages.success(
+                request,
+                _(
+                    "XML-Feiertage wurden aktiviert."
+                ),
+            )
+
+        else:
+
+            messages.warning(
+                request,
+                _(
+                    "XML-Feiertage wurden deaktiviert."
+                ),
+            )
+
+        return redirect(
+            "admin:core_holiday_changelist"
+        )
+
+
+# ============================================================
+# BENACHRICHTIGUNGEN ADMIN
+# ============================================================
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user",
+        "title",
+        "is_read",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_read",
+        "created_at",
+    )
+
+    search_fields = (
+        "user__username",
+        "user__email",
+        "title",
+        "message",
+    )
+
+    list_editable = (
+        "is_read",
+    )
+
+    readonly_fields = (
+        "created_at",
+    )

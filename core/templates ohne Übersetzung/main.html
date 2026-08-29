@@ -1,0 +1,18 @@
+<!-- main.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hallo {{ user.username }}</h1>
+
+<form action="{% url 'ein' %}" method="post">{% csrf_token %}
+    <button type="submit">Einstempeln</button>
+</form>
+
+<form action="{% url 'aus' %}" method="post">{% csrf_token %}
+    <button type="submit">Ausstempeln</button>
+</form>
+
+<a href="{% url 'urlaub_buchen' %}">
+    <button>Urlaub buchen</button>
+</a>
+{% endblock %}

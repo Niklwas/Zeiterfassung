@@ -1,0 +1,73 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+
+{% if modus == "replace" %}
+
+    <h1>{% trans "Feiertage eines Jahres ersetzen" %}</h1>
+
+    <div style="
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ba2121;
+        background: #fff0f0;
+    ">
+        <strong>{% trans "Achtung!" %}</strong>
+
+        <p>
+            {% trans "Alle bereits gespeicherten Feiertage des Jahres aus dem Dateinamen werden gelöscht." %}
+        </p>
+
+        <p>
+            {% trans "Anschließend werden ausschließlich die Feiertage aus der XML-Datei neu angelegt." %}
+        </p>
+
+        <p>
+            {% trans "Beispiel:" %}
+            <strong>feiertage_2026.xml</strong>
+        </p>
+    </div>
+
+{% else %}
+
+    <h1>{% trans "Feiertage aus XML importieren" %}</h1>
+
+    <p>
+        {% trans "Vorhandene Feiertage werden aktualisiert. Neue Feiertage werden hinzugefügt." %}
+    </p>
+
+    <p>
+        {% trans "Beispiel:" %}
+        <strong>feiertage_2026.xml</strong>
+    </p>
+
+{% endif %}
+
+
+<form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div style="margin-top: 20px;">
+
+        <button type="submit" class="default">
+            {% if modus == "replace" %}
+                {% trans "Feiertage ersetzen" %}
+            {% else %}
+                {% trans "XML importieren" %}
+            {% endif %}
+        </button>
+
+        <a href="{% url 'admin:core_holiday_changelist' %}"
+           class="button">
+            {% trans "Abbrechen" %}
+        </a>
+
+    </div>
+
+</form>
+
+{% endblock %}

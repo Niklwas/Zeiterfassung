@@ -1,0 +1,99 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Clock-in-Station" %}</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 50px; }
+        input[type="text"] { font-size: 2em; width: 200px; text-align: center; }
+        button { font-size: 2em; width: 200px; height: 80px; margin: 20px; }
+        .message { font-size: 1.5em; margin-top: 20px; color: green; }
+        .status-box { margin-top: 40px; font-size: 1.2em; border: 1px solid #ccc; padding: 20px; display: inline-block; text-align: left; }
+        .status-box th, .status-box td { padding: 5px 15px; text-align: left; }
+    </style>
+    <script>
+        // Auto-Reset: Nach 5 Sekunden Formular zurücksetzen
+        function resetForm() {
+            const form = document.getElementById("stempelForm");
+            form.reset();
+            const messageDiv = document.getElementById("message");
+            messageDiv.innerText = "";
+        }
+
+        // Status-Box nach 5 Sekunden ausblenden
+        function hideStatusBox() {
+            const statusBox = document.getElementById("statusBox");
+            if (statusBox) {
+                statusBox.style.display = "none";
+            }
+        }
+
+        window.onload = function() {
+            const messageDiv = document.getElementById("message");
+            if (messageDiv && messageDiv.innerText.trim() !== "") {
+                setTimeout(resetForm, 5000);
+            }
+
+            const statusBox = document.getElementById("statusBox");
+            if (statusBox) {
+                setTimeout(hideStatusBox, 5000);
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>{% trans "Clock-in-Station" %}</h1>
+
+    <form method="post" id="stempelForm">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="mitarbeiter_id"
+            placeholder="{% trans 'Mitarbeiter-ID' %}"
+            required
+            autofocus
+        ><br>
+
+        <button type="submit" name="action" value="anfang">
+            {% trans "START" %}
+        </button>
+
+        <button type="submit" name="action" value="ende">
+            {% trans "ENDE" %}
+        </button>
+
+        <button type="submit" name="action" value="status">
+            {% trans "STATUS" %}
+        </button>
+    </form>
+
+    <div class="message" id="message">
+        {% if message %}
+            {{ message }}
+        {% endif %}
+    </div>
+
+    {% if status %}
+    <div class="status-box" id="statusBox">
+
+        <h2>
+            {% blocktrans with username=status.user.username %}
+                Status für {{ username }}
+            {% endblocktrans %}
+        </h2>
+
+        <table>
+            <tr><th>{% trans "Jahresurlaub:" %}</th><td>{{ status.urlaubstage_jahr }}</td></tr>
+            <tr><th>{% trans "Genommen:" %}</th><td>{{ status.urlaub_genommen }}</td></tr>
+            <tr><th>{% trans "Resturlaub:" %}</th><td>{{ status.resturlaub }}</td></tr>
+            <tr><th>{% trans "Überstunden:" %}</th><td>{{ status.jahres_summe_ueber }}</td></tr>
+        </table>
+
+    </div>
+    {% endif %}
+
+</body>
+</html>

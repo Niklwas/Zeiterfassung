@@ -1,0 +1,6 @@
+FROM nginx:latest
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+COPY certs/server.crt /etc/nginx/certs/server.crt
+COPY certs/server.key /etc/nginx/certs/server.key

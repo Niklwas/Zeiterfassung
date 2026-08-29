@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<style>
+
+    .notifications-page {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .notifications-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .notifications-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .notification-button {
+        border: none;
+        border-radius: 5px;
+        padding: 9px 14px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .notification-button.read {
+        background: #e8e8e8;
+        color: #222;
+    }
+
+    .notification-button.delete {
+        background: #d9534f;
+        color: white;
+    }
+
+    .notification-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        padding: 18px;
+        margin-bottom: 12px;
+    }
+
+    .notification-card.unread {
+        border-left: 5px solid #1976d2;
+        background: #f5f9ff;
+    }
+
+    .notification-card-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .notification-title {
+        margin: 0;
+    }
+
+    .notification-message {
+        margin: 10px 0;
+    }
+
+    .notification-date {
+        color: #777;
+        font-size: 13px;
+    }
+
+    .notification-card-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .notification-link {
+        display: inline-block;
+        padding: 8px 12px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .notification-delete {
+        border: none;
+        background: #d9534f;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .notification-empty {
+        background: white;
+        padding: 40px;
+        text-align: center;
+        border-radius: 7px;
+        border: 1px solid #ddd;
+        color: #777;
+    }
+
+</style>
+
+
+<div class="notifications-page">
+
+    <div class="notifications-header">
+
+        <h1>
+            {% trans "Benachrichtigungen" %}
+        </h1>
+
+        {% if notifications %}
+
+            <div class="notifications-actions">
+
+                <form
+                    method="post"
+                    action="{% url 'notifications_mark_all_read' %}"
+                >
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="notification-button read"
+                    >
+                        {% trans "Alle als gelesen markieren" %}
+                    </button>
+
+                </form>
+
+
+                <form
+                    method="post"
+                    action="{% url 'notifications_delete_all' %}"
+                    onsubmit="return confirm(this.dataset.confirmMessage);"
+                    data-confirm-message="{% trans 'Möchtest du wirklich alle Benachrichtigungen löschen?' %}"
+                >
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="notification-button delete"
+                    >
+                        {% trans "Alle löschen" %}
+                    </button>
+                </form>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    {% if notifications %}
+
+        {% for notification in notifications %}
+
+            <div
+                class="
+                    notification-card
+                    {% if not notification.is_read %}
+                        unread
+                    {% endif %}
+                "
+            >
+
+                <div class="notification-card-header">
+
+                    <h3 class="notification-title">
+                        {{ notification.title }}
+                    </h3>
+
+                    {% if not notification.is_read %}
+
+                        <strong>
+                            {% trans "Neu" %}
+                        </strong>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="notification-message">
+
+                    {{ notification.message|linebreaks }}
+
+                </div>
+
+
+                <div class="notification-date">
+
+                    {{ notification.created_at|date:"d.m.Y H:i" }}
+
+                </div>
+
+
+                <div class="notification-card-actions">
+
+                    {% if notification.url %}
+
+                        {% if not notification.is_read %}
+
+                            <a
+                                href="{% url 'notification_read' notification.id %}"
+                                class="notification-link"
+                            >
+                                {% trans "Öffnen" %}
+                            </a>
+
+                        {% else %}
+
+                            <a
+                                href="{{ notification.url }}"
+                                class="notification-link"
+                            >
+                                {% trans "Öffnen" %}
+                            </a>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        {% if not notification.is_read %}
+
+                            <a
+                                href="{% url 'notification_read' notification.id %}"
+                                class="notification-link"
+                            >
+                                {% trans "Als gelesen markieren" %}
+                            </a>
+
+                        {% endif %}
+
+                    {% endif %}
+
+
+                    <form
+                        method="post"
+                        action="{% url 'notification_delete' notification.id %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="notification-delete"
+                        >
+                            {% trans "Löschen" %}
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="notification-empty">
+
+            <h3>
+                {% trans "Keine Benachrichtigungen" %}
+            </h3>
+
+            <p>
+                {% trans "Du hast momentan keine Benachrichtigungen." %}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

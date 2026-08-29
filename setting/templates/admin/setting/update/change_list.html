@@ -1,0 +1,403 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+
+<style>
+    .update-container {
+        max-width: 900px;
+        margin: 30px auto;
+    }
+
+    .update-card {
+        background: var(--body-bg);
+        border: 1px solid var(--hairline-color);
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .update-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .update-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--hairline-color);
+    }
+
+    .update-row:last-child {
+        border-bottom: none;
+    }
+
+    .update-label {
+        font-weight: 600;
+        color: var(--body-quiet-color);
+    }
+
+    .update-value {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .update-status {
+        margin: 25px 0;
+        padding: 18px;
+        border-radius: 6px;
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .status-current {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .status-update {
+        background: #fff3cd;
+        color: #664d03;
+    }
+
+    .status-error {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .status-running {
+        background: #cfe2ff;
+        color: #084298;
+    }
+
+    .update-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .update-button {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-family: inherit;
+    }
+
+    .check-button {
+        background: var(--button-bg);
+        color: var(--button-fg);
+    }
+
+    .install-button {
+        background: #ba2121;
+        color: white;
+    }
+
+    .install-button.disabled,
+    .install-button:disabled {
+        background: #999;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .update-notes {
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid var(--hairline-color);
+        border-radius: 6px;
+    }
+
+    .update-notes h3 {
+        margin-top: 0;
+    }
+
+    .update-log {
+        margin-top: 15px;
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 15px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 13px;
+        max-height: 300px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="update-container">
+
+    <div class="update-card">
+
+        <div class="update-title">
+            {% trans "Software Updates" %}
+        </div>
+
+
+        <!-- Installierte Version -->
+
+        <div class="update-row">
+
+            <div class="update-label">
+                {% trans "Installierte Version" %}
+            </div>
+
+            <div class="update-value">
+                {{ update.current_version|default:_("Noch nicht geprüft") }}
+            </div>
+
+        </div>
+
+
+        <!-- Neueste Version -->
+
+        <div class="update-row">
+
+            <div class="update-label">
+                {% trans "Neueste Version" %}
+            </div>
+
+            <div class="update-value">
+                {{ update.latest_version|default:_("Noch nicht geprüft") }}
+            </div>
+
+        </div>
+
+
+        <!-- Release -->
+
+        {% if update.release_name %}
+
+        <div class="update-row">
+
+            <div class="update-label">
+                {% trans "Release" %}
+            </div>
+
+            <div class="update-value">
+                {{ update.release_name }}
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- GitHub -->
+
+        {% if update.release_url %}
+
+        <div class="update-row">
+
+            <div class="update-label">
+                {% trans "GitHub" %}
+            </div>
+
+            <div class="update-value">
+
+                <a
+                    href="{{ update.release_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {% trans "Release auf GitHub öffnen" %}
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- Installations-Status (Sidecar) -->
+
+        {% if install_status.status == "running" %}
+
+            <div class="update-status status-running">
+                ⏳ {% trans "Update wird gerade installiert…" %}
+            </div>
+
+        {% elif install_status.status == "failed" %}
+
+            <div class="update-status status-error">
+                ❌ {% trans "Die Installation ist fehlgeschlagen." %}
+                {% if install_status.error %}
+                    <br><small>{{ install_status.error }}</small>
+                {% endif %}
+            </div>
+
+        {% elif install_status.status == "success" %}
+
+            <div class="update-status status-current">
+                ✓ {% trans "Update erfolgreich installiert." %}
+            </div>
+
+        {% elif install_status.status == "unreachable" %}
+
+            <div class="update-status status-error">
+                ⚠️ {% trans "Der Updater-Dienst ist aktuell nicht erreichbar." %}
+            </div>
+
+        {% endif %}
+
+        {% if install_status.log %}
+            <div class="update-log">{{ install_status.log }}</div>
+        {% endif %}
+
+
+        <!-- Status Versionsprüfung -->
+
+        {% if update.error_message %}
+
+            <div class="update-status status-error">
+
+                ❌ {% trans "Fehler bei der Updateprüfung" %}
+
+                <br>
+
+                <small>
+                    {{ update.error_message }}
+                </small>
+
+            </div>
+
+        {% elif update.update_available %}
+
+            <div class="update-status status-update">
+
+                🔄 {% trans "Eine neue Version ist verfügbar:" %}
+
+                {{ update.latest_version }}
+
+            </div>
+
+        {% elif update.checked_at %}
+
+            <div class="update-status status-current">
+
+                ✓ {% trans "Du verwendest bereits die aktuellste Version." %}
+
+            </div>
+
+        {% else %}
+
+            <div class="update-status">
+
+                ℹ️ {% trans "Es wurde noch keine Updateprüfung durchgeführt." %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- Letzte Prüfung -->
+
+        <div class="update-row">
+
+            <div class="update-label">
+                {% trans "Letzte Prüfung" %}
+            </div>
+
+            <div class="update-value">
+
+                {% if update.checked_at %}
+
+                    {{ update.checked_at|date:"d.m.Y H:i:s" }}
+
+                {% else %}
+
+                    {% trans "Noch nie" %}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Release Notes -->
+
+        {% if update.release_notes %}
+
+        <div class="update-notes">
+
+            <h3>
+                {% trans "Release Notes" %}
+            </h3>
+
+            <div>
+                {{ update.release_notes|linebreaks }}
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- Buttons -->
+
+        <div class="update-buttons">
+
+            <a
+                href="{{ check_url }}"
+                class="update-button check-button"
+            >
+                {% trans "Nach Updates suchen" %}
+            </a>
+
+
+            {% if update.update_available and install_status.status != "running" %}
+
+                <form method="post" action="{{ install_url }}" style="display:inline;">
+                    {% csrf_token %}
+                    <button
+                        type="submit"
+                        class="update-button install-button"
+                        onclick="return confirm('install updates?');"
+                    >
+                        ⬆ {% trans "Update installieren" %}
+                    </button>
+                </form>
+
+            {% else %}
+
+                <button type="button" class="update-button install-button disabled" disabled>
+                    ⬆
+                    {% if install_status.status == "running" %}
+                        {% trans "Installation läuft…" %}
+                    {% else %}
+                        {% trans "Update installieren" %}
+                    {% endif %}
+                </button>
+
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+{% if install_status.status == "running" %}
+<script>
+    // Seite alle 5 Sekunden neu laden, solange die Installation läuft
+    setTimeout(function() {
+        window.location.reload();
+    }, 5000);
+</script>
+{% endif %}
+
+{% endblock %}

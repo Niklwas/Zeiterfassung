@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<feiertage jahr="2026">
+
+    <feiertag>
+        <monat>1</monat>
+        <tag>1</tag>
+        <bezeichnung>Neujahr</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>4</monat>
+        <tag>3</tag>
+        <bezeichnung>Karfreitag</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>4</monat>
+        <tag>6</tag>
+        <bezeichnung>Ostermontag</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>5</monat>
+        <tag>1</tag>
+        <bezeichnung>Tag der Arbeit</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>10</monat>
+        <tag>3</tag>
+        <bezeichnung>Tag der Deutschen Einheit</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>12</monat>
+        <tag>25</tag>
+        <bezeichnung>1. Weihnachtstag</bezeichnung>
+    </feiertag>
+
+    <feiertag>
+        <monat>12</monat>
+        <tag>26</tag>
+        <bezeichnung>2. Weihnachtstag</bezeichnung>
+    </feiertag>
+
+</feiertage>

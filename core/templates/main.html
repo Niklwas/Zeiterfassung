@@ -1,0 +1,29 @@
+<!-- main.html -->
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% trans "Hallo" %} {{ user.username }}</h1>
+
+<form action="{% url 'ein' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">
+        {% trans "Einstempeln" %}
+    </button>
+</form>
+
+<form action="{% url 'aus' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">
+        {% trans "Ausstempeln" %}
+    </button>
+</form>
+
+<a href="{% url 'urlaub_buchen' %}">
+    <button>
+        {% trans "Urlaub buchen" %}
+    </button>
+</a>
+
+{% endblock %}

@@ -1,0 +1,2318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-26 11:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/admin.py:79
+msgid "Persönlich"
+msgstr "personal"
+
+#: core/admin.py:92 core/views.py:827 core/views.py:1063
+msgid "Arbeitszeit"
+msgstr "Shift"
+
+#: core/admin.py:110
+msgid "Berechtigungen"
+msgstr "rights"
+
+#: core/admin.py:123
+msgid "Wichtiges Datum"
+msgstr "important date"
+
+#: core/admin.py:161 core/templates/admin/jahr_pdf_auswahl.html:6
+msgid "Jahresübersicht"
+msgstr "annual overview"
+
+#: core/admin.py:166
+msgid "PDF Jahresübersicht"
+msgstr "annual pdf overview"
+
+#: core/admin.py:220
+#, python-format
+msgid "Jahresübersicht für %(user)s"
+msgstr "annual overview for %(user)s"
+
+#: core/admin.py:323
+msgid "Offen"
+msgstr "active"
+
+#: core/admin.py:575
+msgid "XML-Datei"
+msgstr "XML-File"
+
+#: core/admin.py:577
+msgid "Zum Beispiel: feiertage_2026.xml"
+msgstr "e.g. feiertage_2026.xml"
+
+#: core/admin.py:625 core/templates/monat.html:24 core/views.py:824
+#: core/views.py:1060
+msgid "Datum"
+msgstr "date"
+
+#: core/admin.py:727
+#, python-format
+msgid "Die XML-Datei ist ungültig: %(error)s"
+msgstr "the XML-file is invalid: %(error)s"
+
+#: core/admin.py:747
+msgid ""
+"Das Jahr konnte nicht aus dem Dateinamen ermittelt werden. Beispiel: "
+"feiertage_2026.xml"
+msgstr "year could not be extracted from filename"
+
+#: core/admin.py:891
+#, python-format
+msgid ""
+"Import für %(jahr)s erfolgreich: %(importiert)s neue Feiertage, "
+"%(aktualisiert)s aktualisierte Feiertage."
+msgstr ""
+
+#: core/admin.py:919 core/templates/admin/core/holiday/xml_upload.html:34
+msgid "Feiertage aus XML importieren"
+msgstr "import Holidays from XML"
+
+#: core/admin.py:1007
+#, python-format
+msgid ""
+"Jahr %(jahr)s wurde vollständig ersetzt. %(geloescht)s alte Feiertage wurden "
+"gelöscht und %(importiert)s Feiertage importiert."
+msgstr ""
+
+#: core/admin.py:1035 core/templates/admin/core/holiday/xml_upload.html:8
+msgid "Feiertage eines Jahres ersetzen"
+msgstr "replace Holidays"
+
+#: core/admin.py:1077
+msgid "XML-Feiertage wurden aktiviert."
+msgstr "XML-Holidays actived"
+
+#: core/admin.py:1086
+msgid "XML-Feiertage wurden deaktiviert."
+msgstr "XML-Holidays deactivated"
+
+#: core/models.py:95
+msgid "Buchung"
+msgstr "new entry"
+
+#: core/models.py:96
+msgid "Buchungen"
+msgstr "entries"
+
+#: core/models.py:123
+msgid "Urlaubseintrag"
+msgstr "vacation application"
+
+#: core/models.py:124
+msgid "Urlaubseinträge"
+msgstr "vacation application"
+
+#: core/models.py:140 core/templates/jahr.html:93 core/templates/jahr.html:137
+#: core/views.py:2253
+msgid "Krankheit"
+msgstr "sickness"
+
+#: core/models.py:141
+msgid "Krankheiten"
+msgstr "sickness"
+
+#: core/models.py:160 core/templates/jahr.html:87 core/templates/jahr.html:129
+#: core/views.py:2238
+msgid "Feiertag"
+msgstr "Holiday"
+
+#: core/models.py:161
+msgid "Feiertage"
+msgstr "Holidays"
+
+#: core/models.py:211
+msgid "Benachrichtigung"
+msgstr "notification"
+
+#: core/models.py:212 core/templates/base.html:225
+#: setting/templates/setting/notifications.html:120
+msgid "Benachrichtigungen"
+msgstr "notifications"
+
+#: core/templates/admin/core/holiday/change_list.html:9
+msgid "XML importieren / aktualisieren"
+msgstr "XML import/ update"
+
+#: core/templates/admin/core/holiday/change_list.html:16
+msgid "XML ersetzen"
+msgstr "replace XML"
+
+#: core/templates/admin/core/holiday/change_list.html:23
+msgid "XML-Feiertage deaktivieren"
+msgstr "deacitvate XML-Holidays"
+
+#: core/templates/admin/core/holiday/change_list.html:27
+msgid "XML-Feiertage aktivieren"
+msgstr "activate XML-Holidays"
+
+#: core/templates/admin/core/holiday/xml_upload.html:16
+msgid "Achtung!"
+msgstr "WARNING!"
+
+#: core/templates/admin/core/holiday/xml_upload.html:19
+msgid ""
+"Alle bereits gespeicherten Feiertage des Jahres aus dem Dateinamen werden "
+"gelöscht."
+msgstr ""
+"All previously saved holidays for the year specified in the filename will be "
+"deleted."
+
+#: core/templates/admin/core/holiday/xml_upload.html:23
+msgid ""
+"Anschließend werden ausschließlich die Feiertage aus der XML-Datei neu "
+"angelegt."
+msgstr "after saving, only Holidays from XML are created"
+
+#: core/templates/admin/core/holiday/xml_upload.html:27
+#: core/templates/admin/core/holiday/xml_upload.html:41
+msgid "Beispiel:"
+msgstr "example:"
+
+#: core/templates/admin/core/holiday/xml_upload.html:37
+msgid ""
+"Vorhandene Feiertage werden aktualisiert. Neue Feiertage werden hinzugefügt."
+msgstr "existing holidays are updated. New Holidays are added."
+
+#: core/templates/admin/core/holiday/xml_upload.html:58
+msgid "Feiertage ersetzen"
+msgstr "replace Holidays"
+
+#: core/templates/admin/core/holiday/xml_upload.html:60
+msgid "XML importieren"
+msgstr "import Holidays from XML"
+
+#: core/templates/admin/core/holiday/xml_upload.html:66
+msgid "Abbrechen"
+msgstr "discard changes"
+
+#: core/templates/admin/jahr_pdf_auswahl.html:9
+msgid "Mitarbeiter:"
+msgstr "User:"
+
+#: core/templates/admin/jahr_pdf_auswahl.html:15
+msgid "Bitte wählen Sie das gewünschte Jahr:"
+msgstr "please select a year:"
+
+#: core/templates/admin/jahr_pdf_auswahl.html:30
+msgid "PDF"
+msgstr "PDF"
+
+#: core/templates/base.html:15 core/templates/base.html:180
+msgid "Zeiterfassung"
+msgstr "Timetracker"
+
+#: core/templates/base.html:184
+msgid "Monatsansicht"
+msgstr "montly overview"
+
+#: core/templates/base.html:188
+msgid "Jahresansicht"
+msgstr "annual overview"
+
+#: core/templates/base.html:192
+msgid "Neue Buchung"
+msgstr "new entry"
+
+#: core/templates/base.html:196 core/templates/jahr.html:96
+#: core/templates/jahr.html:133 core/views.py:2243
+msgid "Urlaub"
+msgstr "vacation"
+
+#: core/templates/base.html:202
+msgid "Urlaubsanträge"
+msgstr "vacation application"
+
+#: core/templates/base.html:256
+#: setting/templates/setting/notifications.html:277
+msgid "Keine Benachrichtigungen"
+msgstr "no notifications"
+
+#: core/templates/base.html:262
+msgid "Alle Benachrichtigungen"
+msgstr "all notifications"
+
+#: core/templates/base.html:273
+msgid "Logout"
+msgstr ""
+
+#: core/templates/clockin_station.html:6 core/templates/clockin_station.html:47
+msgid "Clock-in-Station"
+msgstr ""
+
+#: core/templates/clockin_station.html:55
+msgid "Mitarbeiter-ID"
+msgstr "User-ID"
+
+#: core/templates/clockin_station.html:61
+msgid "START"
+msgstr "START"
+
+#: core/templates/clockin_station.html:65
+msgid "ENDE"
+msgstr "END"
+
+#: core/templates/clockin_station.html:69
+msgid "STATUS"
+msgstr "STATUS"
+
+#: core/templates/clockin_station.html:83
+#, python-format
+msgid ""
+"\n"
+"                Status für %(username)s\n"
+"            "
+msgstr ""
+"\n"
+"                Status for %(username)s\n"
+"            "
+
+#: core/templates/clockin_station.html:89
+msgid "Jahresurlaub:"
+msgstr "annual vacation:"
+
+#: core/templates/clockin_station.html:90
+msgid "Genommen:"
+msgstr "vacation taken:"
+
+#: core/templates/clockin_station.html:91
+msgid "Resturlaub:"
+msgstr "vacation remaining:"
+
+#: core/templates/clockin_station.html:92
+msgid "Überstunden:"
+msgstr "extra hours:"
+
+#: core/templates/jahr.html:17
+#, python-format
+msgid "Jahresübersicht %(year)s als PDF"
+msgstr "annual pdf overview for %(year)s"
+
+#: core/templates/jahr.html:22
+#, python-format
+msgid "Jahresübersicht %(year)s"
+msgstr "annual overview %(year)s"
+
+#: core/templates/jahr.html:28
+msgid "Vorjahr"
+msgstr "previous year"
+
+#: core/templates/jahr.html:38
+msgid "Folgejahr"
+msgstr "next year"
+
+#: core/templates/jahr.html:55
+msgid "Monat"
+msgstr "month"
+
+#: core/templates/jahr.html:90 core/templates/jahr.html:141 core/views.py:2248
+msgid "Wochenende"
+msgstr "weekend"
+
+#: core/templates/jahr.html:125
+msgid "Legende"
+msgstr "key"
+
+#: core/templates/main.html:7
+msgid "Hallo"
+msgstr "Hello"
+
+#: core/templates/main.html:12
+msgid "Einstempeln"
+msgstr "clock-in"
+
+#: core/templates/main.html:19
+msgid "Ausstempeln"
+msgstr "clock-out"
+
+#: core/templates/main.html:25 core/templates/urlaub_buchen.html:5
+msgid "Urlaub buchen"
+msgstr "book vacation"
+
+#: core/templates/monat.html:9
+msgid "Vorheriger Monat"
+msgstr "previous month"
+
+#: core/templates/monat.html:13
+msgid "Nächster Monat"
+msgstr "next month"
+
+#: core/templates/monat.html:19
+msgid "PDF-Export"
+msgstr "PDF-Export"
+
+#: core/templates/monat.html:25 core/views.py:825 core/views.py:1061
+msgid "Einstempel"
+msgstr "clock-in"
+
+#: core/templates/monat.html:26 core/views.py:826 core/views.py:1062
+msgid "Ausstempel"
+msgstr "clock-out"
+
+#: core/templates/monat.html:27
+msgid "Ist (A)"
+msgstr "is (A)"
+
+#: core/templates/monat.html:28
+msgid "Soll (B)"
+msgstr "to be (B)"
+
+#: core/templates/monat.html:29
+msgid "Überstunden (A-B)"
+msgstr "extra hours"
+
+#: core/templates/monat.html:56
+msgid "Zusammenfassung"
+msgstr "summary"
+
+#: core/templates/monat.html:58
+msgid "Monatssummen"
+msgstr "montly sum"
+
+#: core/templates/monat.html:62 core/templates/monat.html:79
+msgid "Ist"
+msgstr "is"
+
+#: core/templates/monat.html:66 core/templates/monat.html:83
+msgid "Soll"
+msgstr "to be"
+
+#: core/templates/monat.html:70 core/templates/monat.html:87
+msgid "Überstunden"
+msgstr "extra hour"
+
+#: core/templates/monat.html:75
+msgid "Jahressummen"
+msgstr "annual sum"
+
+#: core/templates/monat.html:92
+msgid "Urlaubskonto"
+msgstr "vacation account"
+
+#: core/templates/monat.html:96
+msgid "Jahresurlaub"
+msgstr "annual vacation"
+
+#: core/templates/monat.html:100
+msgid "Genommen"
+msgstr "vaction taken"
+
+#: core/templates/monat.html:104
+msgid "Resturlaub"
+msgstr "vaction left"
+
+#: core/templates/urlaub_buchen.html:9
+msgid "Von:"
+msgstr "start:"
+
+#: core/templates/urlaub_buchen.html:11
+msgid "Bis:"
+msgstr "end:"
+
+#: core/templates/urlaub_buchen.html:13
+msgid "Buchen"
+msgstr "new entry"
+
+#: core/templates/urlaub_buchen.html:18
+msgid "Mein gebuchter Urlaub"
+msgstr "my vacation"
+
+#: core/templates/urlaub_buchen.html:23
+#: core/templates/urlaub_genehmigen.html:12
+msgid "Von"
+msgstr "start"
+
+#: core/templates/urlaub_buchen.html:24
+#: core/templates/urlaub_genehmigen.html:13
+msgid "Bis"
+msgstr "end"
+
+#: core/templates/urlaub_buchen.html:25
+#: core/templates/urlaub_genehmigen.html:14
+msgid "Aktion"
+msgstr "action"
+
+#: core/templates/urlaub_buchen.html:38
+msgid "Urlaub stornieren?"
+msgstr "cancel vacation?"
+
+#: core/templates/urlaub_buchen.html:41
+msgid "Stornieren"
+msgstr "cancel"
+
+#: core/templates/urlaub_buchen.html:50
+msgid "Du hast aktuell keinen Urlaub gebucht."
+msgstr "you don't have any vacation currently"
+
+#: core/templates/urlaub_genehmigen.html:6
+msgid "Offene Urlaubsanträge"
+msgstr "new vacation applies"
+
+#: core/templates/urlaub_genehmigen.html:11
+msgid "Benutzer"
+msgstr "user"
+
+#: core/templates/urlaub_genehmigen.html:39
+msgid "Genehmigen"
+msgstr "approve"
+
+#: core/templates/urlaub_genehmigen.html:46
+msgid "Ablehnen"
+msgstr "decline"
+
+#: core/views.py:806
+#, python-format
+msgid "Monatsübersicht %(month)s/%(year)s – %(user)s"
+msgstr "montly overview %(month)s/%(year)s – %(user)s"
+
+#: core/views.py:1117
+msgid "Bitte Start- und Enddatum angeben."
+msgstr "please select start- and enddate."
+
+#: core/views.py:1132
+msgid "Das Startdatum darf nicht nach dem Enddatum liegen."
+msgstr "the startdate must not be after the enddate"
+
+#: core/views.py:1174
+msgid ""
+"Der ausgewählte Zeitraum enthält keine Arbeitstage. Wochenenden und "
+"Feiertage werden nicht als Urlaubstage gezählt."
+msgstr ""
+"the selected period does not contain a workday. Only weekends andHolidays "
+"are no a valid vacation."
+
+#: core/views.py:1220
+#, python-format
+msgid ""
+"Du kannst maximal %(max)s Urlaubstage pro Jahr nehmen. Bereits genommen: "
+"%(bereits)s, neu beantragt: %(neu)s."
+msgstr ""
+"you can only use %(max)s days per year. days taken:%(bereits)s, new applied: "
+"%(neu)s."
+
+#: core/views.py:1267
+msgid "Urlaub nicht gefunden."
+msgstr "no vacation found"
+
+#: core/views.py:1310
+#, python-format
+msgid "Mitarbeiter-ID %(id)s nicht gefunden!"
+msgstr "User-ID %(id)s not found!"
+
+#: core/views.py:1353
+#, python-format
+msgid "Bereits eingestempelt um %(time)s."
+msgstr "clocked in at: %(time)s"
+
+#: core/views.py:1372
+#, python-format
+msgid "%(username)s erfolgreich eingestempelt um %(time)s."
+msgstr "%(username)s successfully clocked in at %(time)s."
+
+#: core/views.py:1399
+#, python-format
+msgid "%(username)s ist aktuell nicht eingestempelt."
+msgstr "%(username)s is currently not clocked in."
+
+#: core/views.py:1417
+#, python-format
+msgid "%(username)s erfolgreich ausgestempelt um %(time)s."
+msgstr "%(username)s successfully clocked out at %(time)s."
+
+#: core/views.py:1651
+#, python-format
+msgid "Status für %(username)s berechnet."
+msgstr "status for %(username)s calculated"
+
+#: core/views.py:1662
+msgid "Ungültige Aktion."
+msgstr "invalid action."
+
+#: core/views.py:1735
+msgid "Urlaubsantrag genehmigt"
+msgstr "vaction approved"
+
+#: core/views.py:1738
+#, python-format
+msgid "Ihr Urlaubsantrag vom %(start)s bis %(ende)s wurde genehmigt."
+msgstr "your vacation from %(start)s to %(ende)s has been approved."
+
+#: core/views.py:1760
+msgid "Urlaubsantrag abgelehnt"
+msgstr "vacation declined"
+
+#: core/views.py:1763
+#, python-format
+msgid "Ihr Urlaubsantrag vom %(start)s bis %(ende)s wurde abgelehnt."
+msgstr "your vacation from %(start)s to %(ende)s has been declined."
+
+#: core/views.py:1787
+msgid "genehmigt"
+msgstr "approved"
+
+#: core/views.py:1787
+msgid "abgelehnt"
+msgstr "declined"
+
+#: core/views.py:1790
+#, python-format
+msgid "Urlaubsantrag wurde %(status)s"
+msgstr "vacation has been %(status)s"
+
+#: core/views.py:1796
+#, python-format
+msgid ""
+"Hallo %(vorname)s,\n"
+"\n"
+"Ihr Urlaubsantrag vom %(start)s bis %(ende)s wurde soeben %(status)s.\n"
+"\n"
+"Viele Grüße\n"
+"Ihr Personalteam"
+msgstr ""
+"Hello %(vorname)s,\n"
+"\n"
+"your vacation from %(start)s to %(ende)s has been %(status)s.\n"
+"\n"
+"Best regards\n"
+"your manager"
+
+#: core/views.py:1842
+#, python-format
+msgid "Jahresübersicht %(year)s – %(user)s"
+msgstr "annual overview for %(year)s – %(user)s"
+
+#: core/views.py:1911
+msgid "Jan"
+msgstr "jan"
+
+#: core/views.py:1912
+msgid "Feb"
+msgstr "feb"
+
+#: core/views.py:1913
+msgid "Mär"
+msgstr "mar"
+
+#: core/views.py:1914
+msgid "Apr"
+msgstr "apr"
+
+#: core/views.py:1915
+msgid "Mai"
+msgstr "may"
+
+#: core/views.py:1916
+msgid "Jun"
+msgstr "jun"
+
+#: core/views.py:1917
+msgid "Jul"
+msgstr "jul"
+
+#: core/views.py:1918
+msgid "Aug"
+msgstr "aug"
+
+#: core/views.py:1919
+msgid "Sep"
+msgstr "sep"
+
+#: core/views.py:1920
+msgid "Okt"
+msgstr "oct"
+
+#: core/views.py:1921
+msgid "Nov"
+msgstr "nov"
+
+#: core/views.py:1922
+msgid "Dez"
+msgstr "dec"
+
+#: core/views.py:2119
+msgid "Zusammenfassung:"
+msgstr "summary:"
+
+#: core/views.py:2134
+#, python-format
+msgid "- Urlaubstage genommen: %(value)s"
+msgstr "vacation taken: %(value)s"
+
+#: core/views.py:2144
+#, python-format
+msgid "- Resturlaub: %(value)s"
+msgstr "- vacation remaining: %(value)s"
+
+#: core/views.py:2154
+#, python-format
+msgid "- Überstunden gesamt: %(value)s"
+msgstr "extra hours sum: %(value)s"
+
+#: core/views.py:2166
+#, python-format
+msgid "- Feiertage: %(value)s"
+msgstr "Holidays: %(value)s"
+
+#: core/views.py:2176
+#, python-format
+msgid "- Krankheitstage: %(value)s"
+msgstr "sickness days: %(value)s"
+
+#: core/views.py:2186
+#, python-format
+msgid "- Wochenendtage: %(value)s"
+msgstr "weekend days: %(value)s"
+
+#: core/views.py:2196
+#, python-format
+msgid "- Arbeitszeit gesamt: %(value)s"
+msgstr "work hour sum %(value)s"
+
+#: core/views.py:2208
+#, python-format
+msgid "- Sollzeit gesamt: %(value)s"
+msgstr "to be sum:%(value)s"
+
+#: core/views.py:2227
+msgid "Legende:"
+msgstr "key:"
+
+#: my-venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: my-venv/lib/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
+msgid "Site Maps"
+msgstr "Site Maps"
+
+#: my-venv/lib/python3.12/site-packages/django/contrib/staticfiles/apps.py:9
+msgid "Static Files"
+msgstr "Static Files"
+
+#: my-venv/lib/python3.12/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr "Syndication"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: my-venv/lib/python3.12/site-packages/django/core/paginator.py:30
+msgid "…"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:153
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:775
+msgid "Enter a valid URL."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:211
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:309
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:318
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:332
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:320
+#: my-venv/lib/python3.12/site-packages/django/utils/ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:514
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:366
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:405
+msgid "Enter a number."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/core/validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/base.py:1600
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:908
+msgid "and"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1217
+msgid "String (unlimited)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1326
+msgid "Comma-separated integers"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1431
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1435
+msgid "Date (without time)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
+msgid "Date (with time)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1704
+msgid "Decimal number"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
+msgid "Duration"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1920
+msgid "Email address"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2188
+msgid "IPv4 address"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2219
+msgid "IP address"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2310
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
+msgid "File"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
+msgid "Image"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:979
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:982
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1276
+msgid "One-to-one relationship"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1333
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1335
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1383
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: my-venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:315
+msgid "Enter a whole number."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:486
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1267
+msgid "Enter a valid date."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:509
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1268
+msgid "Enter a valid time."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:536
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:570
+msgid "Enter a valid duration."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:641
+msgid "No file was submitted."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:642
+msgid "The submitted file is empty."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:717
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:889
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:975
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:977
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1096
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1097
+msgid "Enter a complete value."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1339
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/fields.py:1369
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: my-venv/lib/python3.12/site-packages/django/forms/forms.py:97
+msgid ":"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:484
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:528
+msgid "Currently"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:529
+msgid "Change"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:866
+msgid "Unknown"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:867
+msgid "Yes"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/forms/widgets.py:868
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:903
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/template/defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:25
+msgid "January"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:26
+msgid "February"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:27
+msgid "March"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:28
+msgid "April"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:29
+msgid "May"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:30
+msgid "June"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:31
+msgid "July"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:32
+msgid "August"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:33
+msgid "September"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:34
+msgid "October"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:35
+msgid "November"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:36
+msgid "December"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:39
+msgid "jan"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:40
+msgid "feb"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:41
+msgid "mar"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:42
+msgid "apr"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:43
+msgid "may"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:44
+msgid "jun"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:45
+msgid "jul"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:46
+msgid "aug"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:47
+msgid "sep"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:48
+msgid "oct"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:49
+msgid "nov"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:50
+msgid "dec"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/text.py:288
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: my-venv/lib/python3.12/site-packages/django/utils/text.py:307
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:135
+msgid ", "
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:64
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:115
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:353
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr "Invalid page (%(page_number)s): %(message)s"
+
+#: my-venv/lib/python3.12/site-packages/django/views/generic/list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/static.py:68
+#: my-venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:8
+#: my-venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:7
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
+msgid "Django Documentation"
+msgstr "Django Documentation"
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr "Topics, references, &amp; how-to’s"
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: my-venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: setting/admin.py:87
+#: setting/templates/admin/setting/update/change_list.html:123
+msgid "Software Updates"
+msgstr "Software Updates"
+
+#: setting/admin.py:141
+#, python-format
+msgid "Update verfügbar: %(version)s"
+msgstr "update available: %(version)s"
+
+#: setting/admin.py:154
+#, python-format
+msgid "Du verwendest bereits die aktuelle Version %(version)s."
+msgstr "you are using the newest version %(version)s."
+
+#: setting/admin.py:176
+#, python-format
+msgid "Fehler bei der Updateprüfung: %(error)s"
+msgstr "error checking for updates: %(error)s"
+
+#: setting/admin.py:209
+msgid "E-Mail-Versand"
+msgstr "mail-delivery"
+
+#: setting/admin.py:215
+msgid ""
+"Wenn der E-Mail-Versand deaktiviert ist, werden keine E-Mails versendet und "
+"auch keine E-Mails in der Konsole ausgegeben."
+msgstr "if deactive: no E-Mails are send or printed in console"
+
+#: setting/admin.py:223
+msgid "Backend"
+msgstr "Backend"
+
+#: setting/admin.py:231
+msgid "SMTP-Einstellungen"
+msgstr "SMTP-settings"
+
+#: setting/admin.py:244
+msgid "Absender"
+msgstr "from"
+
+#: setting/admin.py:252
+msgid "Informationen"
+msgstr "information"
+
+#: setting/admin.py:303 setting/models.py:165
+#: setting/templates/admin/setting/certificates.html:51
+msgid "SSL-Zertifikate"
+msgstr "SSL-certificate"
+
+#: setting/admin.py:391
+msgid "Die hochgeladenen Dateien sind ungültig."
+msgstr "uploaded files are invalid"
+
+#: setting/admin.py:426
+msgid "Zertifikate wurden erfolgreich aktualisiert."
+msgstr "certificate has been renewed"
+
+#: setting/admin.py:437
+#, python-format
+msgid "Fehler beim Speichern: %(error)s"
+msgstr "error saving settings: %(error)s"
+
+#: setting/admin.py:465
+msgid "server.crt wurde gelöscht."
+msgstr "server.crt has been deleted"
+
+#: setting/admin.py:475 setting/admin.py:513
+#, python-format
+msgid "Fehler beim Löschen: %(error)s"
+msgstr "error deleting: %(error)s"
+
+#: setting/admin.py:503
+msgid "server.key wurde gelöscht."
+msgstr "server.key has been deleted."
+
+#: setting/admin.py:559 setting/models.py:210
+msgid "Sprache"
+msgstr "Language"
+
+#: setting/admin.py:567 setting/models.py:224
+msgid "Zeitzone"
+msgstr "timezone"
+
+#: setting/models.py:15
+msgid "Aktuelle Version"
+msgstr "current version"
+
+#: setting/models.py:21
+#: setting/templates/admin/setting/update/change_list.html:147
+msgid "Neueste Version"
+msgstr "newest version"
+
+#: setting/models.py:27
+#: setting/templates/admin/setting/update/change_list.html:164
+msgid "Release"
+msgstr "Release"
+
+#: setting/models.py:32
+msgid "Release-URL"
+msgstr "Release-URL"
+
+#: setting/models.py:37
+#: setting/templates/admin/setting/update/change_list.html:280
+msgid "Release Notes"
+msgstr "Release Notes"
+
+#: setting/models.py:43
+msgid "Geprüft am"
+msgstr "last checked at"
+
+#: setting/models.py:48
+msgid "Update verfügbar"
+msgstr "update available"
+
+#: setting/models.py:53
+msgid "Fehlermeldung"
+msgstr "error message"
+
+#: setting/models.py:57
+msgid "Software-Update"
+msgstr "Software-Update"
+
+#: setting/models.py:58
+msgid "Software-Updates"
+msgstr "Software-Updates"
+
+#: setting/models.py:76
+msgid "SMTP EmailBackend"
+msgstr "SMTP EmailBackend"
+
+#: setting/models.py:80
+msgid "Console EmailBackend"
+msgstr "Console EmailBackend"
+
+#: setting/models.py:86
+msgid "E-Mail-Versand aktiviert"
+msgstr "E-Mail-delivery active "
+
+#: setting/models.py:88
+msgid ""
+"Wenn deaktiviert, werden keine E-Mails versendet und auch keine E-Mails in "
+"der Konsole ausgegeben."
+msgstr "if deactive: no E-Mails are send or printed in console"
+
+#: setting/models.py:98
+msgid "E-Mail-Backend"
+msgstr "E-Mail-Backend"
+
+#: setting/models.py:105
+msgid "E-Mail-Host"
+msgstr "E-Mail-Host"
+
+#: setting/models.py:110
+msgid "E-Mail-Port"
+msgstr "E-Mail-Port"
+
+#: setting/models.py:117
+msgid "E-Mail-Benutzer"
+msgstr "e-Mail-username"
+
+#: setting/models.py:124
+msgid "E-Mail-Passwort"
+msgstr "E-Mail-password"
+
+#: setting/models.py:129
+msgid "TLS verwenden"
+msgstr "use TLS"
+
+#: setting/models.py:134
+msgid "SSL verwenden"
+msgstr "use SSL"
+
+#: setting/models.py:140
+msgid "Standard-Absender"
+msgstr "default-from"
+
+#: setting/models.py:145
+msgid "Zuletzt geändert"
+msgstr "last changed"
+
+#: setting/models.py:149
+msgid "E-Mail-Einstellung"
+msgstr "E-Mail-setting"
+
+#: setting/models.py:150 setting/models.py:153
+msgid "E-Mail-Einstellungen"
+msgstr "E-Mail-settings"
+
+#: setting/models.py:164
+msgid "SSL-Zertifikat"
+msgstr "SSL certificates"
+
+#: setting/models.py:176
+msgid "XML-Feiertage aktiv"
+msgstr "XML-Holidays active"
+
+#: setting/models.py:178
+msgid "Wenn deaktiviert, werden Feiertage aus den XML-Dateien ignoriert."
+msgstr "deactive to ignore XML-Holidays"
+
+#: setting/models.py:184
+msgid "Feiertagseinstellung"
+msgstr "Holidaysetting"
+
+#: setting/models.py:185 setting/models.py:188
+msgid "Feiertagseinstellungen"
+msgstr "Holidaysettings"
+
+#: setting/models.py:198
+msgid "Deutsch"
+msgstr "german"
+
+#: setting/models.py:199
+msgid "English"
+msgstr "english"
+
+#: setting/models.py:226
+msgid "Die Zeitzone der Anwendung."
+msgstr "apply timezone"
+
+#: setting/models.py:237
+msgid "Automatische Sommer-/Winterzeit"
+msgstr "automatic DST (summer-/wintertime)"
+
+#: setting/models.py:240
+msgid ""
+"Wenn aktiviert, wird die Sommer- und Winterzeit automatisch anhand der "
+"gewählten Zeitzone berücksichtigt."
+msgstr "if active, DST is active based on current_timezone"
+
+#: setting/models.py:251
+msgid "Allgemeine Einstellung"
+msgstr "general setttings"
+
+#: setting/models.py:252
+msgid "Allgemeine Einstellungen"
+msgstr "general setttings"
+
+#: setting/templates/admin/index.html:14
+msgid "System"
+msgstr "system"
+
+#: setting/templates/admin/index.html:22
+msgid "SSL-Zertifikate verwalten"
+msgstr "Manage SSL certificates"
+
+#: setting/templates/admin/setting/certificates.html:64
+msgid "Zertifikat vorhanden"
+msgstr "certificate available"
+
+#: setting/templates/admin/setting/certificates.html:68
+#: setting/templates/admin/setting/certificates.html:114
+msgid "Größe:"
+msgstr "size:"
+
+#: setting/templates/admin/setting/certificates.html:69
+#: setting/templates/admin/setting/certificates.html:115
+msgid "Bytes"
+msgstr "Bytes"
+
+#: setting/templates/admin/setting/certificates.html:76
+msgid "Möchtest du server.crt wirklich löschen?"
+msgstr "Are you sure to delete server.crt?"
+
+#: setting/templates/admin/setting/certificates.html:85
+msgid "server.crt löschen"
+msgstr "delete server.crt"
+
+#: setting/templates/admin/setting/certificates.html:93
+msgid "Kein Zertifikat vorhanden"
+msgstr "no certificate available"
+
+#: setting/templates/admin/setting/certificates.html:110
+msgid "Privater Schlüssel vorhanden"
+msgstr "private key available"
+
+#: setting/templates/admin/setting/certificates.html:119
+msgid ""
+"Der private Schlüssel wird aus Sicherheitsgründen nicht im Admin angezeigt."
+msgstr "private key is not shown for security reasons"
+
+#: setting/templates/admin/setting/certificates.html:126
+msgid "ACHTUNG: Möchtest du server.key wirklich löschen?"
+msgstr "WARNING: are you sure to delete server.key?"
+
+#: setting/templates/admin/setting/certificates.html:135
+msgid "server.key löschen"
+msgstr "delete server.key"
+
+#: setting/templates/admin/setting/certificates.html:143
+msgid "Kein privater Schlüssel vorhanden"
+msgstr "no private key available"
+
+#: setting/templates/admin/setting/certificates.html:154
+msgid "Neue Zertifikate hochladen"
+msgstr "upload new certificate"
+
+#: setting/templates/admin/setting/certificates.html:158
+msgid "Du kannst das Zertifikat und/oder den privaten Schlüssel ersetzen."
+msgstr "you can change the certificate and/or private key"
+
+#: setting/templates/admin/setting/certificates.html:173
+msgid "Zertifikate speichern"
+msgstr "save certificates"
+
+#: setting/templates/admin/setting/mailsetting/change_list.html:11
+msgid "Test-E-Mail senden"
+msgstr "send test Mail"
+
+#: setting/templates/admin/setting/update/change_list.html:132
+msgid "Installierte Version"
+msgstr "installed version"
+
+#: setting/templates/admin/setting/update/change_list.html:136
+#: setting/templates/admin/setting/update/change_list.html:151
+msgid "Noch nicht geprüft"
+msgstr "not checked yet"
+
+#: setting/templates/admin/setting/update/change_list.html:183
+msgid "GitHub"
+msgstr "GitHub"
+
+#: setting/templates/admin/setting/update/change_list.html:193
+msgid "Release auf GitHub öffnen"
+msgstr "open release on GitHub"
+
+#: setting/templates/admin/setting/update/change_list.html:209
+msgid "Fehler bei der Updateprüfung"
+msgstr "error checking for updates"
+
+#: setting/templates/admin/setting/update/change_list.html:223
+msgid "Eine neue Version ist verfügbar:"
+msgstr "a new version is available"
+
+#: setting/templates/admin/setting/update/change_list.html:233
+msgid "Du verwendest bereits die aktuellste Version."
+msgstr "you are using the most recent version"
+
+#: setting/templates/admin/setting/update/change_list.html:241
+msgid "Es wurde noch keine Updateprüfung durchgeführt."
+msgstr "not checked for updates yet"
+
+#: setting/templates/admin/setting/update/change_list.html:253
+msgid "Letzte Prüfung"
+msgstr "last check"
+
+#: setting/templates/admin/setting/update/change_list.html:264
+msgid "Noch nie"
+msgstr "never"
+
+#: setting/templates/admin/setting/update/change_list.html:300
+msgid "Nach Updates suchen"
+msgstr "search for updates"
+
+#: setting/templates/admin/setting/update/change_list.html:308
+msgid "Update-Funktion wird noch eingerichtet"
+msgstr "update function is being configured"
+
+#: setting/templates/admin/setting/update/change_list.html:310
+#: setting/templates/admin/setting/update/change_list.html:318
+msgid "Update installieren"
+msgstr "install updates"
+
+#: setting/templates/setting/notifications.html:138
+msgid "Alle als gelesen markieren"
+msgstr "mark all as read"
+
+#: setting/templates/setting/notifications.html:148
+msgid "Möchtest du wirklich alle Benachrichtigungen löschen?"
+msgstr "Are you sure you want to delete all notifications?"
+
+#: setting/templates/setting/notifications.html:156
+msgid "Alle löschen"
+msgstr "delete all"
+
+#: setting/templates/setting/notifications.html:188
+msgid "Neu"
+msgstr "new"
+
+#: setting/templates/setting/notifications.html:220
+#: setting/templates/setting/notifications.html:229
+msgid "Öffnen"
+msgstr "open"
+
+#: setting/templates/setting/notifications.html:242
+msgid "Als gelesen markieren"
+msgstr "mark as read"
+
+#: setting/templates/setting/notifications.html:261
+msgid "Löschen"
+msgstr "delete"
+
+#: setting/templates/setting/notifications.html:281
+msgid "Du hast momentan keine Benachrichtigungen."
+msgstr "you Currently have no new notifications"

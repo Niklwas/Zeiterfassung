@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Urlaub buchen</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Von:</label>
+    <input type="date" name="startdatum" required>
+    <label>Bis:</label>
+    <input type="date" name="enddatum" required>
+    <button type="submit">Buchen</button>
+</form>
+
+<hr>
+
+<h2>Mein gebuchter Urlaub</h2>
+
+{% if meine_urlaube %}
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Von</th>
+        <th>Bis</th>
+        <th>Aktion</th>
+    </tr>
+
+    {% for u in meine_urlaube %}
+    <tr>
+        <td>{{ u.startdatum }}</td>
+        <td>{{ u.enddatum }}</td>
+        <td>
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="delete_id" value="{{ u.id }}">
+                <button type="submit" onclick="return confirm('Urlaub stornieren?');">
+                    Stornieren
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+<p>Du hast aktuell keinen Urlaub gebucht.</p>
+{% endif %}
+
+{% endblock %}
+

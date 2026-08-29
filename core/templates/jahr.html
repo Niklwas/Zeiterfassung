@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+
+<div style="margin-bottom: 20px;"> 
+    <a href="{% url 'jahr_pdf' year=year %}" 
+        style=" 
+            display: inline-block; 
+            padding: 10px 18px; 
+            background-color: #333; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px;
+        ">
+        📄 {% blocktrans %}Jahresübersicht {{ year }} als PDF{% endblocktrans %}
+    </a> 
+</div>
+
+<h1>
+    {% blocktrans %}Jahresübersicht {{ year }}{% endblocktrans %}
+</h1>
+
+<div style="margin-bottom: 20px;">
+
+    <a href="{% url 'jahr' year=year|add:'-1' %}">
+        ← {% trans "Vorjahr" %}
+    </a>
+
+    &nbsp;&nbsp;
+
+    <strong>{{ year }}</strong>
+
+    &nbsp;&nbsp;
+
+    <a href="{% url 'jahr' year=year|add:'1' %}">
+        {% trans "Folgejahr" %} →
+    </a>
+
+</div>
+
+
+<table
+    border="1"
+    cellpadding="6"
+    cellspacing="0"
+    style="border-collapse: collapse;"
+>
+
+    <thead>
+
+        <tr>
+
+            <th>{% trans "Monat" %}</th>
+
+            {% for tag in tage_header %}
+                <th>{{ tag }}</th>
+            {% endfor %}
+
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+
+        {% for row in matrix %}
+
+            <tr>
+
+                {% for cell in row %}
+
+                    {% if cell %}
+
+                        {% if cell.monat %}
+
+                            <th>
+                                {{ cell.monat }}
+                            </th>
+
+                        {% else %}
+
+                            <td
+                                {% if cell.feiertag %}
+                                    style="background-color: lightgreen;"
+                                    title="{% trans 'Feiertag' %}"
+                                {% elif cell.wochenende %}
+                                    style="background-color: yellow;"
+                                    title="{% trans 'Wochenende' %}"
+                                {% elif cell.krankheit %}
+                                    style="background-color: lightcoral;"
+                                    title="{% trans 'Krankheit' %}"
+                                {% elif cell.urlaub %}
+                                    style="background-color: lightblue;"
+                                    title="{% trans 'Urlaub' %}"
+                                {% endif %}
+                            >
+
+                                {{ cell.tag }}
+
+                            </td>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <td></td>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+
+<br>
+
+<h3>{% trans "Legende" %}</h3>
+
+<div>
+    <span style="background-color: lightgreen; padding: 5px;">
+        {% trans "Feiertag" %}
+    </span>
+
+    <span style="background-color: lightblue; padding: 5px;">
+        {% trans "Urlaub" %}
+    </span>
+
+    <span style="background-color: lightcoral; padding: 5px;">
+        {% trans "Krankheit" %}
+    </span>
+
+    <span style="background-color: yellow; padding: 5px;">
+        {% trans "Wochenende" %}
+    </span>
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feiertage>
+    <feiertag>
+        <tag>1</tag>
+        <monat>1</monat>
+        <name>Neujahr</name>
+        <aktiv>true</aktiv>
+    </feiertag>
+
+    <feiertag>
+        <tag>1</tag>
+        <monat>5</monat>
+        <name>Tag der Arbeit</name>
+        <aktiv>true</aktiv>
+    </feiertag>
+
+    <feiertag>
+        <tag>3</tag>
+        <monat>10</monat>
+        <name>Tag der Deutschen Einheit</name>
+        <aktiv>true</aktiv>
+    </feiertag>
+
+    <feiertag>
+        <tag>25</tag>
+        <monat>12</monat>
+        <name>1. Weihnachtstag</name>
+        <aktiv>true</aktiv>
+    </feiertag>
+
+    <feiertag>
+        <tag>26</tag>
+        <monat>12</monat>
+        <name>2. Weihnachtstag</name>
+        <aktiv>true</aktiv>
+    </feiertag>
+</feiertage>

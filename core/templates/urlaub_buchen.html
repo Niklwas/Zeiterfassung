@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h2>{% trans "Urlaub buchen"%}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label>{% trans "Von:"%}</label>
+    <input type="date" name="startdatum" required>
+    <label>{% trans "Bis:"%}</label>
+    <input type="date" name="enddatum" required>
+    <button type="submit">{% trans "Buchen"%}</button>
+</form>
+
+<hr>
+
+<h2>{% trans "Mein gebuchter Urlaub"%}</h2>
+
+{% if meine_urlaube %}
+<table border="1" cellpadding="5">
+    <tr>
+        <th>{% trans "Von"%}</th>
+        <th>{% trans "Bis"%}</th>
+        <th>{% trans "Aktion"%}</th>
+    </tr>
+
+    {% for u in meine_urlaube %}
+    <tr>
+        <td>{{ u.startdatum }}</td>
+        <td>{{ u.enddatum }}</td>
+        <td>
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="delete_id" value="{{ u.id }}">
+                <button
+                type="submit"
+                data-confirm-message="{% trans 'Urlaub stornieren?' %}"
+                onclick="return confirm(this.dataset.confirmMessage);"
+                >
+                {% trans "Stornieren" %}
+                </button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+<p>{% trans "Du hast aktuell keinen Urlaub gebucht." %}</p>
+{% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,59 @@
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f2f2f2;
+        font-family: sans-serif;
+    }
+
+    .login-box {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        width: 320px;
+        text-align: center;
+    }
+
+    .login-box h2 {
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .login-box input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+
+    .login-box button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 6px;
+        background: #4a6cf7;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .login-box button:hover {
+        background: #3d5ce0;
+    }
+</style>
+
+<div class="login-container">
+    <form method="post" class="login-box">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <input name="mitarbeiter_id" placeholder="Mitarbeiter-ID">
+        <input name="password" type="password" placeholder="Passwort">
+        <button type="submit">Login</button>
+    </form>
+</div>

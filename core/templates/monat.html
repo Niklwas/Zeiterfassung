@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<h2>{{ month }} / {{ year }}</h2>
+
+<a href="{% url 'monat' prev.0 prev.1 %}">
+    ← {% trans "Vorheriger Monat" %}
+</a>
+
+<a href="{% url 'monat' next.0 next.1 %}">
+    {% trans "Nächster Monat" %} →
+</a>
+
+<br><br>
+
+<a href="{% url 'monat_pdf' year month %}" target="_blank">
+    <button>{% trans "PDF-Export" %}</button>
+</a>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>{% trans "Datum" %}</th>
+        <th>{% trans "Einstempel" %}</th>
+        <th>{% trans "Ausstempel" %}</th>
+        <th>{% trans "Ist (A)" %}</th>
+        <th>{% trans "Soll (B)" %}</th>
+        <th>{% trans "Überstunden (A-B)" %}</th>
+    </tr>
+
+    {% for row in data %}
+    <tr
+        {% if row.is_krank %}
+            style="background-color: #ff9999;"
+        {% elif row.is_urlaub %}
+            style="background-color: lightblue;"
+        {% elif row.is_holiday %}
+            style="background-color: lightgreen;"
+        {% elif row.is_weekend %}
+            style="background-color: lightyellow;"
+        {% endif %}
+    >
+        <td>{{ row.datum }}</td>
+        <td>{{ row.in|default:"-" }}</td>
+        <td>{{ row.out|default:"-" }}</td>
+        <td>{{ row.arbeitszeit }}</td>
+        <td>{{ row.sollzeit }}</td>
+        <td>{{ row.ueberstunden }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br><br>
+
+<h3>{% trans "Zusammenfassung" %}</h3>
+
+<h3>{% trans "Monatssummen" %}</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>{% trans "Ist" %}</th>
+        <td>{{ monats_summe_ist }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Soll" %}</th>
+        <td>{{ monats_summe_soll }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Überstunden" %}</th>
+        <td>{{ monats_summe_ueber }}</td>
+    </tr>
+</table>
+
+<h3>{% trans "Jahressummen" %}</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>{% trans "Ist" %}</th>
+        <td>{{ jahres_summe_ist }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Soll" %}</th>
+        <td>{{ jahres_summe_soll }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Überstunden" %}</th>
+        <td>{{ jahres_summe_ueber }}</td>
+    </tr>
+</table>
+
+<h3>{% trans "Urlaubskonto" %}</h3>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>{% trans "Jahresurlaub" %}</th>
+        <td>{{ urlaubstage_jahr }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Genommen" %}</th>
+        <td>{{ urlaub_genommen }}</td>
+    </tr>
+    <tr>
+        <th>{% trans "Resturlaub" %}</th>
+        <td>{{ resturlaub }}</td>
+    </tr>
+</table>
+
+{% endblock %}

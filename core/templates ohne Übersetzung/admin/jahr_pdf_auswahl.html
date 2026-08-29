@@ -1,0 +1,38 @@
+```html
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+<h1>Jahresübersicht</h1>
+
+<p>
+    Mitarbeiter:
+    <strong>
+        {{ user_obj.get_full_name|default:user_obj.username }}
+    </strong>
+</p>
+
+<p>Bitte wählen Sie das gewünschte Jahr:</p>
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+
+    {% for jahr in jahre %}
+
+        <a
+            href="{% url 'admin:mitarbeiter_jahr_pdf' user_obj.id jahr %}"
+            class="button"
+            style="
+                padding: 10px 20px;
+                font-size: 14px;
+                text-decoration: none;
+            "
+        >
+            PDF {{ jahr }}
+        </a>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+```

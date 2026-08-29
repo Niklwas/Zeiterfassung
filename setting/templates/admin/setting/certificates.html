@@ -1,0 +1,181 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<style>
+
+    .certificate-box {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .certificate-status {
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .certificate-ok {
+        color: #198754;
+    }
+
+    .certificate-missing {
+        color: #dc3545;
+    }
+
+    .certificate-danger {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 14px;
+        cursor: pointer;
+    }
+
+    .certificate-upload {
+        background: white;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .certificate-upload input {
+        margin-bottom: 15px;
+    }
+
+</style>
+
+
+<h1>
+    {% trans "SSL-Zertifikate" %}
+</h1>
+
+
+<div class="certificate-box">
+
+    <h2>
+        server.crt
+    </h2>
+
+    {% if certificate_exists %}
+
+        <div class="certificate-status certificate-ok">
+            ✓ {% trans "Zertifikat vorhanden" %}
+        </div>
+
+        <p>
+            {% trans "Größe:" %}
+            {{ certificate_size }} {% trans "Bytes" %}
+        </p>
+
+        <form
+            method="post"
+            action="{% url 'admin:setting_certificates_delete_crt' %}"
+            onsubmit="return confirm(this.dataset.confirmMessage);"
+            data-confirm-message="{% trans 'Möchtest du server.crt wirklich löschen?' %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="certificate-danger"
+            >
+                {% trans "server.crt löschen" %}
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <div class="certificate-status certificate-missing">
+            ✕ {% trans "Kein Zertifikat vorhanden" %}
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<div class="certificate-box">
+
+    <h2>
+        server.key
+    </h2>
+
+    {% if private_key_exists %}
+
+        <div class="certificate-status certificate-ok">
+            ✓ {% trans "Privater Schlüssel vorhanden" %}
+        </div>
+
+        <p>
+            {% trans "Größe:" %}
+            {{ private_key_size }} {% trans "Bytes" %}
+        </p>
+
+        <p>
+            🔒 {% trans "Der private Schlüssel wird aus Sicherheitsgründen nicht im Admin angezeigt." %}
+        </p>
+
+        <form
+            method="post"
+            action="{% url 'admin:setting_certificates_delete_key' %}"
+            onsubmit="return confirm(this.dataset.confirmMessage);"
+            data-confirm-message="{% trans 'ACHTUNG: Möchtest du server.key wirklich löschen?' %}"
+        >
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="certificate-danger"
+            >
+                {% trans "server.key löschen" %}
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <div class="certificate-status certificate-missing">
+            ✕ {% trans "Kein privater Schlüssel vorhanden" %}
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<div class="certificate-upload">
+
+    <h2>
+        {% trans "Neue Zertifikate hochladen" %}
+    </h2>
+
+    <p>
+        {% trans "Du kannst das Zertifikat und/oder den privaten Schlüssel ersetzen." %}
+    </p>
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        action="{% url 'admin:setting_sslcertificateadminproxy_changelist' %}"
+    >
+
+        {% csrf_token %}
+
+        {{ upload_form.as_p }}
+
+        <input
+            type="submit"
+            value="{% trans 'Zertifikate speichern' %}"
+            class="default"
+        >
+
+    </form>
+
+</div>
+
+{% endblock %}
