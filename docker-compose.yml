@@ -26,7 +26,7 @@ services:
 
 
   app:
-    image: zeiterfassung-app:current
+    build: .
     container_name: django-app
     restart: unless-stopped
 
@@ -36,20 +36,8 @@ services:
 
     volumes:
       - static_data:/app/staticfiles
-
     env_file:
       - .env.prod
-
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)\""
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 12
-      start_period: 15s
 
 
   nginx:
@@ -61,8 +49,7 @@ services:
     restart: unless-stopped
 
     depends_on:
-      app:
-        condition: service_healthy
+      - app
 
     ports:
       - "80:80"
@@ -72,33 +59,6 @@ services:
       - static_data:/static:ro
 
 
-  updater:
-    build:
-      context: ./updater
-      dockerfile: Dockerfile
-
-    container_name: django-updater
-    restart: unless-stopped
-
-    env_file:
-      - .env.prod
-
-    environment:
-      GITHUB_REPO: Niklwas/Zeiterfassung
-      IMAGE_NAME: zeiterfassung-app
-      APP_CONTAINER: django-app
-      UPDATER_PORT: "9000"
-
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - updater_tmp:/tmp/updater
-      - ./:/project
-
-    expose:
-      - "9000"
-
-
 volumes:
   postgres_data:
   static_data:
-  updater_tmp:

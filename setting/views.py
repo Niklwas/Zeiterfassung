@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from core.models import Notification
 
-from django.http import JsonResponse
 
 @login_required
 def notifications(request):
@@ -96,8 +95,3 @@ def notifications_delete_all(
 
     return redirect("notifications")
 
-
-def health(request):
-    return JsonResponse({
-        "status": "ok"
-    })

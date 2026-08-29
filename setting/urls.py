@@ -1,8 +1,6 @@
 from django.urls import path
 
 from . import views
-from .views import health
-
 
 urlpatterns = [
 
@@ -35,7 +33,5 @@ urlpatterns = [
         views.notifications_delete_all,
         name="notifications_delete_all",
     ),
-
-    path("health/", health),
 
 ]
