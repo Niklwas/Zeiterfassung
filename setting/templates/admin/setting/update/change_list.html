@@ -6,29 +6,255 @@
 
 <style>
     .update-container {
-        max-width: 900px;
+        max-width: 1000px;
         margin: 30px auto;
     }
 
     .update-card {
         background: var(--body-bg);
         border: 1px solid var(--hairline-color);
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 30px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .update-title {
         font-size: 28px;
         font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .update-subtitle {
+        color: var(--body-quiet-color);
         margin-bottom: 30px;
+    }
+
+    /* ========================================================
+       VERSION GRID
+       ======================================================== */
+
+    .version-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .version-box {
+        border: 1px solid var(--hairline-color);
+        border-radius: 8px;
+        padding: 20px;
+        background: var(--darkened-bg);
+    }
+
+    .version-label {
+        color: var(--body-quiet-color);
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .version-value {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    /* ========================================================
+       STATUS
+       ======================================================== */
+
+    .update-status {
+        margin: 25px 0;
+        padding: 18px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        border: 1px solid transparent;
+    }
+
+    .status-current {
+        background: #d1e7dd;
+        color: #0f5132;
+        border-color: #a3cfbb;
+    }
+
+    .status-update {
+        background: #fff3cd;
+        color: #664d03;
+        border-color: #ffecb5;
+    }
+
+    .status-error {
+        background: #f8d7da;
+        color: #842029;
+        border-color: #f1aeb5;
+    }
+
+    .status-running {
+        background: #cfe2ff;
+        color: #084298;
+        border-color: #9ec5fe;
+    }
+
+    .status-info {
+        background: var(--darkened-bg);
+        color: var(--body-quiet-color);
+        border-color: var(--hairline-color);
+    }
+
+    .status-title {
+        font-size: 17px;
+        margin-bottom: 5px;
+    }
+
+    .status-detail {
+        font-size: 14px;
+        font-weight: normal;
+        margin-top: 7px;
+        line-height: 1.5;
+    }
+
+    /* ========================================================
+       INSTALLATION
+       ======================================================== */
+
+    .installation-section {
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 1px solid var(--hairline-color);
+    }
+
+    .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 18px;
+    }
+
+    .installation-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .meta-box {
+        padding: 14px 16px;
+        border: 1px solid var(--hairline-color);
+        border-radius: 6px;
+        background: var(--darkened-bg);
+    }
+
+    .meta-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--body-quiet-color);
+        margin-bottom: 5px;
+    }
+
+    .meta-value {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* ========================================================
+       PROGRESS
+       ======================================================== */
+
+    .progress-wrapper {
+        margin: 20px 0;
+    }
+
+    .progress-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        font-size: 13px;
+        color: var(--body-quiet-color);
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: var(--darkened-bg);
+        border: 1px solid var(--hairline-color);
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        width: 50%;
+        background: var(--link-fg);
+        border-radius: 999px;
+        transition: width 0.4s ease;
+    }
+
+    /* ========================================================
+       LOG
+       ======================================================== */
+
+    .update-log-section {
+        margin-top: 25px;
+    }
+
+    .update-log {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 16px;
+        border-radius: 7px;
+        font-family: monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        max-height: 350px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .empty-log {
+        color: var(--body-quiet-color);
+        font-size: 14px;
+        padding: 15px 0;
+    }
+
+    /* ========================================================
+       RELEASE NOTES
+       ======================================================== */
+
+    .update-notes {
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid var(--hairline-color);
+        border-radius: 8px;
+    }
+
+    .update-notes h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .update-notes-content {
+        line-height: 1.6;
+    }
+
+    /* ========================================================
+       INFORMATION ROWS
+       ======================================================== */
+
+    .update-information {
+        margin-top: 25px;
+        border-top: 1px solid var(--hairline-color);
     }
 
     .update-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 0;
+        gap: 20px;
+        padding: 16px 0;
         border-bottom: 1px solid var(--hairline-color);
     }
 
@@ -42,40 +268,17 @@
     }
 
     .update-value {
-        font-size: 18px;
         font-weight: 500;
+        text-align: right;
     }
 
-    .update-status {
-        margin: 25px 0;
-        padding: 18px;
-        border-radius: 6px;
-        font-size: 17px;
-        font-weight: 600;
-    }
-
-    .status-current {
-        background: #d1e7dd;
-        color: #0f5132;
-    }
-
-    .status-update {
-        background: #fff3cd;
-        color: #664d03;
-    }
-
-    .status-error {
-        background: #f8d7da;
-        color: #842029;
-    }
-
-    .status-running {
-        background: #cfe2ff;
-        color: #084298;
-    }
+    /* ========================================================
+       BUTTONS
+       ======================================================== */
 
     .update-buttons {
         display: flex;
+        flex-wrap: wrap;
         gap: 12px;
         margin-top: 30px;
     }
@@ -97,40 +300,97 @@
         color: var(--button-fg);
     }
 
+    .check-button:hover {
+        opacity: 0.9;
+    }
+
     .install-button {
         background: #ba2121;
         color: white;
     }
 
+    .install-button:hover {
+        background: #a51d1d;
+    }
+
     .install-button.disabled,
     .install-button:disabled {
         background: #999;
+        color: white;
         cursor: not-allowed;
         opacity: 0.7;
     }
 
-    .update-notes {
-        margin-top: 30px;
-        padding: 20px;
-        border: 1px solid var(--hairline-color);
-        border-radius: 6px;
+    /* ========================================================
+       BADGES
+       ======================================================== */
+
+    .badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
     }
 
-    .update-notes h3 {
-        margin-top: 0;
+    .badge-running {
+        background: #cfe2ff;
+        color: #084298;
     }
 
-    .update-log {
-        margin-top: 15px;
-        background: #1e1e1e;
-        color: #d4d4d4;
-        padding: 15px;
-        border-radius: 6px;
-        font-family: monospace;
-        font-size: 13px;
-        max-height: 300px;
-        overflow-y: auto;
-        white-space: pre-wrap;
+    .badge-success {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .badge-error {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .badge-idle {
+        background: var(--darkened-bg);
+        color: var(--body-quiet-color);
+    }
+
+    /* ========================================================
+       RESPONSIVE
+       ======================================================== */
+
+    @media (max-width: 700px) {
+
+        .update-container {
+            margin: 15px;
+        }
+
+        .update-card {
+            padding: 20px;
+        }
+
+        .version-grid,
+        .installation-meta {
+            grid-template-columns: 1fr;
+        }
+
+        .update-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .update-value {
+            text-align: left;
+        }
+
+        .update-buttons {
+            flex-direction: column;
+        }
+
+        .update-button {
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
     }
 </style>
 {% endblock %}
@@ -142,136 +402,122 @@
 
     <div class="update-card">
 
+        <!-- ==================================================
+             HEADER
+             ================================================== -->
+
         <div class="update-title">
             {% trans "Software Updates" %}
         </div>
 
+        <div class="update-subtitle">
+            {% trans "Prüfe auf neue Versionen und installiere verfügbare Updates." %}
+        </div>
 
-        <!-- Installierte Version -->
 
-        <div class="update-row">
+        <!-- ==================================================
+             VERSIONEN
+             ================================================== -->
 
-            <div class="update-label">
-                {% trans "Installierte Version" %}
+        <div class="version-grid">
+
+            <div class="version-box">
+
+                <div class="version-label">
+                    {% trans "Installierte Version" %}
+                </div>
+
+                <div class="version-value">
+                    {{ update.current_version|default:_("Noch nicht geprüft") }}
+                </div>
+
             </div>
 
-            <div class="update-value">
-                {{ update.current_version|default:_("Noch nicht geprüft") }}
+
+            <div class="version-box">
+
+                <div class="version-label">
+                    {% trans "Neueste Version" %}
+                </div>
+
+                <div class="version-value">
+                    {{ update.latest_version|default:_("Noch nicht geprüft") }}
+                </div>
+
             </div>
 
         </div>
 
 
-        <!-- Neueste Version -->
+        <!-- ==================================================
+             RELEASE
+             ================================================== -->
 
-        <div class="update-row">
+        {% if update.release_name or update.release_url %}
 
-            <div class="update-label">
-                {% trans "Neueste Version" %}
+        <div class="update-information">
+
+            {% if update.release_name %}
+
+            <div class="update-row">
+
+                <div class="update-label">
+                    {% trans "Release" %}
+                </div>
+
+                <div class="update-value">
+                    {{ update.release_name }}
+                </div>
+
             </div>
 
-            <div class="update-value">
-                {{ update.latest_version|default:_("Noch nicht geprüft") }}
+            {% endif %}
+
+
+            {% if update.release_url %}
+
+            <div class="update-row">
+
+                <div class="update-label">
+                    {% trans "GitHub" %}
+                </div>
+
+                <div class="update-value">
+
+                    <a
+                        href="{{ update.release_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {% trans "Release auf GitHub öffnen" %}
+                    </a>
+
+                </div>
+
             </div>
 
-        </div>
-
-
-        <!-- Release -->
-
-        {% if update.release_name %}
-
-        <div class="update-row">
-
-            <div class="update-label">
-                {% trans "Release" %}
-            </div>
-
-            <div class="update-value">
-                {{ update.release_name }}
-            </div>
+            {% endif %}
 
         </div>
 
         {% endif %}
 
 
-        <!-- GitHub -->
-
-        {% if update.release_url %}
-
-        <div class="update-row">
-
-            <div class="update-label">
-                {% trans "GitHub" %}
-            </div>
-
-            <div class="update-value">
-
-                <a
-                    href="{{ update.release_url }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {% trans "Release auf GitHub öffnen" %}
-                </a>
-
-            </div>
-
-        </div>
-
-        {% endif %}
-
-
-        <!-- Installations-Status (Sidecar) -->
-
-        {% if install_status.status == "running" %}
-
-            <div class="update-status status-running">
-                ⏳ {% trans "Update wird gerade installiert…" %}
-            </div>
-
-        {% elif install_status.status == "failed" %}
-
-            <div class="update-status status-error">
-                ❌ {% trans "Die Installation ist fehlgeschlagen." %}
-                {% if install_status.error %}
-                    <br><small>{{ install_status.error }}</small>
-                {% endif %}
-            </div>
-
-        {% elif install_status.status == "success" %}
-
-            <div class="update-status status-current">
-                ✓ {% trans "Update erfolgreich installiert." %}
-            </div>
-
-        {% elif install_status.status == "unreachable" %}
-
-            <div class="update-status status-error">
-                ⚠️ {% trans "Der Updater-Dienst ist aktuell nicht erreichbar." %}
-            </div>
-
-        {% endif %}
-
-        {% if install_status.log %}
-            <div class="update-log">{{ install_status.log }}</div>
-        {% endif %}
-
-
-        <!-- Status Versionsprüfung -->
+        <!-- ==================================================
+             UPDATE-PRÜFUNG STATUS
+             ================================================== -->
 
         {% if update.error_message %}
 
             <div class="update-status status-error">
 
-                ❌ {% trans "Fehler bei der Updateprüfung" %}
+                <div class="status-title">
+                    ❌ {% trans "Fehler bei der Updateprüfung" %}
+                </div>
 
-                <br>
-
-                <small>
+                <div class="status-detail">
                     {{ update.error_message }}
-                </small>
+                </div>
 
             </div>
 
@@ -279,9 +525,14 @@
 
             <div class="update-status status-update">
 
-                🔄 {% trans "Eine neue Version ist verfügbar:" %}
+                <div class="status-title">
+                    🔄 {% trans "Eine neue Version ist verfügbar." %}
+                </div>
 
-                {{ update.latest_version }}
+                <div class="status-detail">
+                    {% trans "Verfügbare Version:" %}
+                    <strong>{{ update.latest_version }}</strong>
+                </div>
 
             </div>
 
@@ -289,47 +540,410 @@
 
             <div class="update-status status-current">
 
-                ✓ {% trans "Du verwendest bereits die aktuellste Version." %}
+                <div class="status-title">
+                    ✓ {% trans "Deine Anwendung ist aktuell." %}
+                </div>
+
+                <div class="status-detail">
+                    {% trans "Es wurde keine neuere Version gefunden." %}
+                </div>
 
             </div>
 
         {% else %}
 
-            <div class="update-status">
+            <div class="update-status status-info">
 
-                ℹ️ {% trans "Es wurde noch keine Updateprüfung durchgeführt." %}
+                <div class="status-title">
+                    ℹ️ {% trans "Noch keine Updateprüfung durchgeführt." %}
+                </div>
+
+                <div class="status-detail">
+                    {% trans "Klicke auf „Nach Updates suchen“, um die aktuell verfügbare Version zu prüfen." %}
+                </div>
 
             </div>
 
         {% endif %}
 
 
-        <!-- Letzte Prüfung -->
+        <!-- ==================================================
+             INSTALLATIONSSTATUS
+             ================================================== -->
 
-        <div class="update-row">
+        <div
+            id="installation-status"
+            class="installation-section"
+        >
 
-            <div class="update-label">
-                {% trans "Letzte Prüfung" %}
+            <div class="section-title">
+                {% trans "Installationsstatus" %}
             </div>
 
-            <div class="update-value">
 
-                {% if update.checked_at %}
+            {% if install_status.status == "running" %}
 
-                    {{ update.checked_at|date:"d.m.Y H:i:s" }}
+                <div class="update-status status-running">
 
-                {% else %}
+                    <div class="status-title">
+                        ⏳ {% trans "Update wird gerade installiert…" %}
+                    </div>
 
-                    {% trans "Noch nie" %}
+                    {% if install_status.phase %}
+
+                    <div class="status-detail">
+                        {% trans "Aktuelle Phase:" %}
+                        <strong>{{ install_status.phase }}</strong>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="installation-meta">
+
+                    {% if install_status.version %}
+
+                    <div class="meta-box">
+
+                        <span class="meta-label">
+                            {% trans "Zielversion" %}
+                        </span>
+
+                        <span class="meta-value">
+                            {{ install_status.version }}
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% if install_status.current_version %}
+
+                    <div class="meta-box">
+
+                        <span class="meta-label">
+                            {% trans "Aktuelle Version" %}
+                        </span>
+
+                        <span class="meta-value">
+                            {{ install_status.current_version }}
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="progress-wrapper">
+
+                    <div class="progress-label">
+
+                        <span>
+                            {% trans "Installation läuft" %}
+                        </span>
+
+                        <span>
+                            ●
+                        </span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            id="progress-fill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+            {% elif install_status.status == "success" %}
+
+                <div class="update-status status-current">
+
+                    <div class="status-title">
+                        ✓ {% trans "Update erfolgreich installiert." %}
+                    </div>
+
+                    {% if install_status.version %}
+
+                    <div class="status-detail">
+                        {% trans "Installierte Version:" %}
+                        <strong>{{ install_status.version }}</strong>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% elif install_status.status == "error" or install_status.status == "failed" %}
+
+                <div class="update-status status-error">
+
+                    <div class="status-title">
+                        ❌ {% trans "Die Installation ist fehlgeschlagen." %}
+                    </div>
+
+                    {% if install_status.error %}
+
+                    <div class="status-detail">
+                        {{ install_status.error }}
+                    </div>
+
+                    {% endif %}
+
+                    {% if install_status.rollback %}
+
+                    <div class="status-detail">
+                        ↩ {% trans "Ein Rollback wurde durchgeführt." %}
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% elif install_status.status == "unreachable" %}
+
+                <div class="update-status status-error">
+
+                    <div class="status-title">
+                        ⚠️ {% trans "Der Updater-Dienst ist aktuell nicht erreichbar." %}
+                    </div>
+
+                    <div class="status-detail">
+                        {% trans "Bitte prüfe, ob der Updater-Container läuft." %}
+                    </div>
+
+                </div>
+
+
+            {% else %}
+
+                <div class="update-status status-info">
+
+                    <div class="status-title">
+                        ○ {% trans "Keine Installation aktiv." %}
+                    </div>
+
+                    <div class="status-detail">
+                        {% trans "Der Updater wartet auf eine Update-Anforderung." %}
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- ==================================================
+                 INSTALLATIONSDETAILS
+                 ================================================== -->
+
+            {% if install_status.started_at or install_status.finished_at or install_status.backup or install_status.rollback_image or install_status.current_image %}
+
+            <div class="installation-meta">
+
+                {% if install_status.started_at %}
+
+                <div class="meta-box">
+
+                    <span class="meta-label">
+                        {% trans "Gestartet" %}
+                    </span>
+
+                    <span class="meta-value">
+                        {{ install_status.started_at }}
+                    </span>
+
+                </div>
 
                 {% endif %}
+
+
+                {% if install_status.finished_at %}
+
+                <div class="meta-box">
+
+                    <span class="meta-label">
+                        {% trans "Beendet" %}
+                    </span>
+
+                    <span class="meta-value">
+                        {{ install_status.finished_at }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if install_status.backup %}
+
+                <div class="meta-box">
+
+                    <span class="meta-label">
+                        {% trans "Backup" %}
+                    </span>
+
+                    <span class="meta-value">
+                        {{ install_status.backup }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if install_status.current_image %}
+
+                <div class="meta-box">
+
+                    <span class="meta-label">
+                        {% trans "Aktuelles Image" %}
+                    </span>
+
+                    <span class="meta-value">
+                        {{ install_status.current_image }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if install_status.rollback_image %}
+
+                <div class="meta-box">
+
+                    <span class="meta-label">
+                        {% trans "Rollback-Image" %}
+                    </span>
+
+                    <span class="meta-value">
+                        {{ install_status.rollback_image }}
+                    </span>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- ==================================================
+                 LOG
+                 ================================================== -->
+
+            {% if install_status.log %}
+
+            <div class="update-log-section">
+
+                <div class="section-title">
+                    {% trans "Update-Log" %}
+                </div>
+
+                <div
+                    class="update-log"
+                    id="update-log"
+                >{{ install_status.log }}</div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ==================================================
+             LETZTE PRÜFUNG
+             ================================================== -->
+
+        <div class="update-information">
+
+            <div class="update-row">
+
+                <div class="update-label">
+                    {% trans "Letzte Prüfung" %}
+                </div>
+
+                <div class="update-value">
+
+                    {% if update.checked_at %}
+
+                        {{ update.checked_at|date:"d.m.Y H:i:s" }}
+
+                    {% else %}
+
+                        {% trans "Noch nie" %}
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="update-row">
+
+                <div class="update-label">
+                    {% trans "Updater-Status" %}
+                </div>
+
+                <div class="update-value">
+
+                    {% if install_status.status == "running" %}
+
+                        <span class="badge badge-running">
+                            {% trans "Läuft" %}
+                        </span>
+
+                    {% elif install_status.status == "success" %}
+
+                        <span class="badge badge-success">
+                            {% trans "Erfolgreich" %}
+                        </span>
+
+                    {% elif install_status.status == "error" or install_status.status == "failed" %}
+
+                        <span class="badge badge-error">
+                            {% trans "Fehler" %}
+                        </span>
+
+                    {% elif install_status.status == "unreachable" %}
+
+                        <span class="badge badge-error">
+                            {% trans "Nicht erreichbar" %}
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge badge-idle">
+                            {% trans "Bereit" %}
+                        </span>
+
+                    {% endif %}
+
+                </div>
 
             </div>
 
         </div>
 
 
-        <!-- Release Notes -->
+        <!-- ==================================================
+             RELEASE NOTES
+             ================================================== -->
 
         {% if update.release_notes %}
 
@@ -339,7 +953,7 @@
                 {% trans "Release Notes" %}
             </h3>
 
-            <div>
+            <div class="update-notes-content">
                 {{ update.release_notes|linebreaks }}
             </div>
 
@@ -348,7 +962,9 @@
         {% endif %}
 
 
-        <!-- Buttons -->
+        <!-- ==================================================
+             BUTTONS
+             ================================================== -->
 
         <div class="update-buttons">
 
@@ -356,48 +972,121 @@
                 href="{{ check_url }}"
                 class="update-button check-button"
             >
-                {% trans "Nach Updates suchen" %}
+                🔍 {% trans "Nach Updates suchen" %}
             </a>
 
 
             {% if update.update_available and install_status.status != "running" %}
 
-                <form method="post" action="{{ install_url }}" style="display:inline;">
+                <form
+                    method="post"
+                    action="{{ install_url }}"
+                    style="display:inline;"
+                >
+
                     {% csrf_token %}
+
                     <button
                         type="submit"
                         class="update-button install-button"
-                        onclick="return confirm('install updates?');"
+                        onclick="return confirm('Möchtest du das Update wirklich installieren?');"
                     >
                         ⬆ {% trans "Update installieren" %}
                     </button>
+
                 </form>
 
             {% else %}
 
-                <button type="button" class="update-button install-button disabled" disabled>
+                <button
+                    type="button"
+                    class="update-button install-button disabled"
+                    disabled
+                >
+
                     ⬆
+
                     {% if install_status.status == "running" %}
+
                         {% trans "Installation läuft…" %}
+
+                    {% elif install_status.status == "unreachable" %}
+
+                        {% trans "Updater nicht erreichbar" %}
+
                     {% else %}
+
                         {% trans "Update installieren" %}
+
                     {% endif %}
+
                 </button>
 
             {% endif %}
+
         </div>
 
     </div>
 
 </div>
 
+
+<!-- ==========================================================
+     LIVE POLLING
+     ========================================================== -->
+
 {% if install_status.status == "running" %}
+
 <script>
-    // Seite alle 5 Sekunden neu laden, solange die Installation läuft
-    setTimeout(function() {
+
+(function () {
+
+    const checkUrl = "{{ check_url|escapejs }}";
+
+    let progress = 10;
+
+    const progressFill =
+        document.getElementById("progress-fill");
+
+    function animateProgress() {
+
+        if (!progressFill) {
+            return;
+        }
+
+        if (progress < 90) {
+            progress += 5;
+            progressFill.style.width = progress + "%";
+        }
+
+    }
+
+    const progressTimer =
+        setInterval(
+            animateProgress,
+            3000
+        );
+
+
+    /*
+     * Während der Installation wird die Seite regelmäßig
+     * aktualisiert, damit Status und Log sichtbar bleiben.
+     *
+     * Der Reload erfolgt bewusst nur während "running".
+     */
+
+    setTimeout(function () {
+
+        clearInterval(progressTimer);
+
         window.location.reload();
+
     }, 5000);
+
+})();
+
 </script>
+
 {% endif %}
 
 {% endblock %}

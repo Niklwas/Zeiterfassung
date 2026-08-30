@@ -446,8 +446,6 @@ def run_update(version: str) -> None:
                     "rollback",
                 )
 
-                restore_backup(BACKUP_PATH)
-
                 restore_image(
                     rollback_image
                 )
@@ -779,6 +777,120 @@ def cleanup_old_backups(max_backups: int = 3) -> None:
         )
 
 
+def install_release_files(release_dir: str):
+    if not os.path.isdir(release_dir):
+        raise ValueError(
+            f"Release-Verzeichnis existiert nicht: {release_dir}"
+        )
+
+    for entry in os.listdir(release_dir):
+
+        if entry in UPDATE_EXCLUDE:
+            continue
+
+        source = os.path.join(
+            release_dir,
+            entry,
+        )
+
+        destination = os.path.join(
+            PROJECT_PATH,
+            entry,
+        )
+
+        if os.path.isdir(source):
+
+            if os.path.exists(destination):
+                shutil.rmtree(destination)
+
+            shutil.copytree(
+                source,
+                destination,
+            )
+
+        else:
+
+            os.makedirs(
+                os.path.dirname(destination),
+                exist_ok=True,
+            )
+
+            shutil.copy2(
+                source,
+                destination,
+            )
+
+
+def get_release_changes(release_dir: str) -> dict:
+    files = []
+    directories = []
+
+    for root, dirnames, filenames in os.walk(
+        release_dir
+    ):
+        relative_root = os.path.relpath(
+            root,
+            release_dir,
+        )
+
+        if relative_root == ".":
+            relative_root = ""
+
+        dirnames[:] = [
+            name
+            for name in dirnames
+            if name not in UPDATE_EXCLUDE
+        ]
+
+        for dirname in dirnames:
+            relative_path = os.path.join(
+                relative_root,
+                dirname,
+            )
+
+            directories.append(
+                relative_path
+            )
+
+        for filename in filenames:
+            if filename in UPDATE_EXCLUDE:
+                continue
+
+            relative_path = os.path.join(
+                relative_root,
+                filename,
+            )
+
+            files.append(
+                relative_path
+            )
+
+    return {
+        "files": sorted(files),
+        "directories": sorted(directories),
+    }
+
+
+def get_relative_files(root: str) -> set[str]:
+    result = set()
+
+    for current_root, _, filenames in os.walk(root):
+        for filename in filenames:
+            absolute_path = os.path.join(
+                current_root,
+                filename,
+            )
+
+            relative_path = os.path.relpath(
+                absolute_path,
+                root,
+            )
+
+            result.add(relative_path)
+
+    return result
+
+
 def sync_release_files(release_dir: str):
     """
     Synchronisiert das vorbereitete Release mit dem Projekt.
@@ -968,6 +1080,240 @@ def perform_file_update(version: str) -> dict:
     }
 
 
+def check_app_health(
+    timeout: int = 60,
+    interval: int = 2,
+) -> dict:
+    """
+    Wartet darauf, dass die Django-Anwendung wieder erreichbar ist.
+    """
+
+    start = time.monotonic()
+    last_error = ""
+
+    while time.monotonic() - start < timeout:
+
+        try:
+            response = requests.get(
+                APP_HEALTH_URL,
+                timeout=5,
+            )
+
+            if response.status_code == 200:
+
+                try:
+                    data = response.json()
+                except ValueError:
+                    data = {}
+
+                if data.get("status") == "ok":
+                    return {
+                        "status": "ok",
+                        "http_status": response.status_code,
+                        "url": APP_HEALTH_URL,
+                    }
+
+                last_error = (
+                    f"Ungültige Healthcheck-Antwort: "
+                    f"{response.text[:500]}"
+                )
+
+            else:
+                last_error = (
+                    f"HTTP {response.status_code}: "
+                    f"{response.text[:500]}"
+                )
+
+        except requests.RequestException as exc:
+            last_error = str(exc)
+
+        time.sleep(interval)
+
+    raise RuntimeError(
+        f"Healthcheck fehlgeschlagen: {last_error}"
+    )
+
+
+def get_current_app_image() -> str:
+    result = subprocess.run(
+        [
+            "docker",
+            "inspect",
+            "--format",
+            "{{.Config.Image}}",
+            "django-app",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    image = result.stdout.strip()
+
+    if not image:
+        raise RuntimeError(
+            "Aktuelles App-Image konnte nicht ermittelt werden."
+        )
+
+    return image
+
+
+def backup_current_app_image(
+    timestamp: str,
+) -> str:
+
+    current_image = get_current_app_image()
+
+    rollback_image = (
+        f"zeiterfassung-app:"
+        f"rollback-{timestamp}"
+    )
+
+    subprocess.run(
+        [
+            "docker",
+            "tag",
+            current_image,
+            rollback_image,
+        ],
+        check=True,
+    )
+
+    return rollback_image
+
+
+def restore_backup(
+    backup_dir: str,
+):
+    if not os.path.isdir(backup_dir):
+        raise ValueError(
+            f"Backup existiert nicht: {backup_dir}"
+        )
+
+    for entry in os.listdir(PROJECT_PATH):
+
+        if entry in UPDATE_EXCLUDE:
+            continue
+
+        target = os.path.join(
+            PROJECT_PATH,
+            entry,
+        )
+
+        if os.path.isdir(target):
+            shutil.rmtree(target)
+
+        elif os.path.isfile(target):
+            os.remove(target)
+
+    for entry in os.listdir(backup_dir):
+
+        source = os.path.join(
+            backup_dir,
+            entry,
+        )
+
+        target = os.path.join(
+            PROJECT_PATH,
+            entry,
+        )
+
+        if os.path.isdir(source):
+            shutil.copytree(
+                source,
+                target,
+            )
+
+        else:
+            shutil.copy2(
+                source,
+                target,
+            )
+
+
+def restore_app_image(
+    rollback_image: str,
+):
+    subprocess.run(
+        [
+            "docker",
+            "tag",
+            rollback_image,
+            "zeiterfassung-app:latest",
+        ],
+        check=True,
+    )
+
+    subprocess.run(
+        [
+            "docker",
+            "compose",
+            "-p",
+            "zeiterfassung",
+            "-f",
+            "/project/docker-compose.yml",
+            "up",
+            "-d",
+            "--no-deps",
+            "app",
+        ],
+        check=True,
+    )
+
+
+def rollback_app(
+    rollback_image: str,
+) -> dict:
+
+    try:
+        subprocess.run(
+            [
+                "docker",
+                "tag",
+                rollback_image,
+                "zeiterfassung-app:latest",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        subprocess.run(
+            [
+                "docker",
+                "compose",
+                "-p",
+                "zeiterfassung",
+                "-f",
+                "/project/docker-compose.yml",
+                "up",
+                "-d",
+                "--no-deps",
+                "app",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        health = check_app_health(
+            timeout=60,
+            interval=2,
+        )
+
+        return {
+            "status": "ok",
+            "health": health,
+        }
+
+    except subprocess.CalledProcessError as exc:
+
+        raise RuntimeError(
+            "Rollback konnte nicht durchgeführt werden: "
+            + (exc.stderr or str(exc))
+        )
+
+
 def log(
     message: str,
     phase: str | None = None,
@@ -1103,55 +1449,6 @@ def restore_image(rollback_tag: str) -> None:
     )
 
 
-def restore_backup(
-    backup_dir: str,
-):
-    if not os.path.isdir(backup_dir):
-        raise ValueError(
-            f"Backup existiert nicht: {backup_dir}"
-        )
-
-    for entry in os.listdir(PROJECT_PATH):
-
-        if entry in UPDATE_EXCLUDE:
-            continue
-
-        target = os.path.join(
-            PROJECT_PATH,
-            entry,
-        )
-
-        if os.path.isdir(target):
-            shutil.rmtree(target)
-
-        elif os.path.isfile(target):
-            os.remove(target)
-
-    for entry in os.listdir(backup_dir):
-
-        source = os.path.join(
-            backup_dir,
-            entry,
-        )
-
-        target = os.path.join(
-            PROJECT_PATH,
-            entry,
-        )
-
-        if os.path.isdir(source):
-            shutil.copytree(
-                source,
-                target,
-            )
-
-        else:
-            shutil.copy2(
-                source,
-                target,
-            )
-
-
 def check_app_health(
     timeout: int = 60,
     interval: int = 2,
@@ -1236,28 +1533,4 @@ def get_app_version() -> str:
     log(f"Aktuelle App-Version: {version}")
 
     return version
-
-
-
-def get_relative_files(root: str) -> set[str]:
-    result = set()
-
-    for current_root, _, filenames in os.walk(root):
-        for filename in filenames:
-            absolute_path = os.path.join(
-                current_root,
-                filename,
-            )
-
-            relative_path = os.path.relpath(
-                absolute_path,
-                root,
-            )
-
-            result.add(relative_path)
-
-    return result
-
-
-
 

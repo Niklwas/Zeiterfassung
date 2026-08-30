@@ -4,24 +4,113 @@
 {% block content %}
 
 <div style="
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--body-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
 ">
 
-    <h2>
-        {% trans "System" %}
-    </h2>
+```
+<h2>
+    {% trans "System" %}
+</h2>
+
+<p>
+    <a
+        href="{% url 'admin:setting_certificates' %}"
+        class="button"
+    >
+        🔐 {% trans "SSL-Zertifikate verwalten" %}
+    </a>
+</p>
+```
+
+</div>
+
+<div style="
+    background: var(--body-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+">
+
+```
+<h2>
+    {% trans "Software Update" %}
+</h2>
+
+{% if update_info %}
 
     <p>
-        <a
-            href="{% url 'admin:setting_certificates' %}"
-            class="button"
-        >
-            🔐 {% trans "SSL-Zertifikate verwalten" %}
-        </a>
+        <strong>{% trans "Installierte Version:" %}</strong>
+        {{ update_info.current_version }}
     </p>
+
+    <p>
+        <strong>{% trans "Neueste Version:" %}</strong>
+        {{ update_info.latest_version|default:_("Unbekannt") }}
+    </p>
+
+    {% if update_info.update_available %}
+
+        <div style="
+            margin: 15px 0;
+            padding: 12px;
+            background: #fff3cd;
+            color: #664d03;
+            border-radius: 6px;
+        ">
+            🔄
+            {% trans "Eine neue Version ist verfügbar." %}
+        </div>
+
+    {% elif update_info.error_message %}
+
+        <div style="
+            margin: 15px 0;
+            padding: 12px;
+            background: #f8d7da;
+            color: #842029;
+            border-radius: 6px;
+        ">
+            ⚠️
+            {% trans "Updateprüfung fehlgeschlagen." %}
+        </div>
+
+    {% else %}
+
+        <div style="
+            margin: 15px 0;
+            padding: 12px;
+            background: #d1e7dd;
+            color: #0f5132;
+            border-radius: 6px;
+        ">
+            ✓
+            {% trans "Die Anwendung ist aktuell." %}
+        </div>
+
+    {% endif %}
+
+{% else %}
+
+    <p>
+        {% trans "Updateinformationen konnten nicht geladen werden." %}
+    </p>
+
+{% endif %}
+
+<p>
+    <a
+        href="{% url 'admin:setting_update_changelist' %}"
+        class="button"
+    >
+        ⚙️ {% trans "Software Updates verwalten" %}
+    </a>
+</p>
+```
 
 </div>
 
