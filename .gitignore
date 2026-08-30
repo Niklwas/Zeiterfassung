@@ -185,4 +185,5 @@ my-venv/
 __pycache__/
 *.pyc
 
-.updater-build/
+.update/
+.backup/

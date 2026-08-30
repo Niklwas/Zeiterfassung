@@ -36,6 +36,7 @@ services:
 
     volumes:
       - static_data:/app/staticfiles
+
     env_file:
       - .env.prod
 
@@ -57,6 +58,28 @@ services:
 
     volumes:
       - static_data:/static:ro
+
+
+  updater:
+    build:
+      context: ./updater
+      dockerfile: Dockerfile
+
+    container_name: django-updater
+    restart: unless-stopped
+
+#    environment:
+#      UPDATER_SECRET: ${UPDATER_SECRET}
+    env_file:
+      - .env.prod
+
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/project
+
+    expose:
+      - "9000"
 
 
 volumes:

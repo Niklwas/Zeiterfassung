@@ -39,6 +39,7 @@ POSTGRES_PASSWORD=zeiterfassung
 #update-Container
 UPDATER_SECRET=super-secure-updater-secret
 UPDATER_URL=http://updater:9000
+APP_HEALTH_URL=http://app:8000/health/
 ```
 
 ### create self signed certificate

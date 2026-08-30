@@ -19,18 +19,17 @@ from django.urls import path, include
 
 from django.conf.urls.i18n import i18n_patterns
 
-#urlpatterns = [
-#    path("i18n/", include("django.conf.urls.i18n")),
-#]
+from django.http import JsonResponse
 
-#urlpatterns += i18n_patterns(
-#    path("admin/", admin.site.urls),
-#    path("", include("core.urls")),
-#    path("", include("setting.urls")),
-#)
+def health_check(request):
+    return JsonResponse({
+        "status": "ok",
+    })
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("core.urls")),
     path("", include("setting.urls")),
+    path("health/", health_check, name="health"),
 ]
+
